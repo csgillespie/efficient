@@ -1,2 +1,3 @@
-# efficient_pkg
-A pkg for the efficient book
+# Becoming an efficient R programmer
+
+An R package for the efficient book

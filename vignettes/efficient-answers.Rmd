@@ -1,0 +1,38 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Chapter 2
+
+### R Version
+
+#### 1. What version of R are you using? Is it the most up-to-date?
+
+Your R version is stored in a variable called `R.Version`. Enter these commands to find out the version.
+
+```{r}
+R.version
+R.version.string
+```
+
+This can be compared with the latest version, which is described on R's website: [cran.r-project.org/](https://cran.r-project.org/). If you've not got the latest version, consider installing the latest version!
+
+
+
+#### 2. Do any of your packages need updating?
+
+To find out which (if any) of your packages need updating use the following command:
+
+```{r, eval=FALSE}
+old.packages()
+```
+
+
+

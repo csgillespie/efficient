@@ -13,7 +13,7 @@ vignette: >
 
 ### R Version
 
-#### 1. What version of R are you using? Is it the most up-to-date?
+- What version of R are you using? Is it the most up-to-date?
 
 Your R version is stored in a variable called `R.Version`. Enter these commands to find out the version.
 
@@ -26,7 +26,7 @@ This can be compared with the latest version, which is described on R's website:
 
 
 
-#### 2. Do any of your packages need updating?
+- Do any of your packages need updating?
 
 To find out which (if any) of your packages need updating use the following command:
 
@@ -36,7 +36,7 @@ old.packages()
 
 ### R Startup
 
-#### 1. What are the three locations where the startup files are stored? Where are these locations on your computer?
+- What are the three locations where the startup files are stored? Where are these locations on your computer?
 
 The three locations where startup files can be stored and used are `R_HOME`, `HOME` and the project's working directory. The specific locations of these places will vary from one computer to another but can be found using the following commands:
 
@@ -49,11 +49,11 @@ getwd()
 See ?Startup for more details
 
 
-#### 2. For each location, does a `.Rprofile` or `.Renviron` file exist?
+- For each location, does a `.Rprofile` or `.Renviron` file exist?
 
 Navigate to the locations outlined above to find out.
 
-#### 3. Create a `.Rprofile` file in your current working directory that prints the message `Happy efficient R programming` each time you start R at this location.
+- Create a `.Rprofile` file in your current working directory that prints the message `Happy efficient R programming` each time you start R at this location.
 
 To test if this works, restart the session (e.g. via `Shift+Ctrl+F10` in RStudio) and see if the message appears. Creating the following line in a file called `.Rprofile` in your project's root directory will do this:
 
@@ -62,7 +62,7 @@ message("Happy efficient R programming")
 ```
 
 
-#### 4. What happens to the startup files in `R_HOME` if you create them in `HOME` or local project directories? 
+- What happens to the startup files in `R_HOME` if you create them in `HOME` or local project directories? 
 
 The `R_HOME` startup files will be ignored. Likewise the `HOME` startup files will be ignored if there are local startup files.
 

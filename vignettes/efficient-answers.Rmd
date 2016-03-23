@@ -64,47 +64,11 @@ message("Happy efficient R programming")
 
 #### 4. What happens to the startup files in `R_HOME` if you create them in `HOME` or local project directories? 
 
-### RStudio
-
 The `R_HOME` startup files will be ignored. Likewise the `HOME` startup files will be ignored if there are local startup files.
 
-You are developing a project to visualise data.
-Test out the multi-panel RStudio workflow by following the steps below:
+### RStudio
 
-1. Create a new folder for the input data using the **Files pane**.
-
-2. Type in `downl` in the **Source pane** and hit `Enter` to make the function `download.file()` autocomplete. Then type `"`, which will autocomplete to `""`, paste the URL of a file to download (e.g. `https://www.census.gov/2010census/csv/pop_change.csv`) and a file name (e.g. `pop_change.csv`).
-3. Execute the full command with `Ctl-Enter`:
-
-    ```{r, eval=FALSE}
-    download.file("https://www.census.gov/2010census/csv/pop_change.csv",
-                  "data/pop_change.csv")
-    ```
-
-3. Write and execute a command to read-in the data, such as
-
-    ```{r}
-    pop_change = read.csv("data/pop_change.csv", skip = 2)
-    ```
-
-    ```{r, echo=FALSE}
-    # question: complete example with plots and all here?
-    ```
-
-4. Use the **Environment pane** to click on the data object `pop_change`. Note that this runs the command `View(pop_change)`, which launches an interactive data explore pane in the top left panel (see Figure 2-3).
-
-    ```{r 2-3, echo=FALSE, fig.cap="The data viewing tab in RStudio."}
-    knitr::include_graphics("figures/View.png")
-    ```
-
-5. Use the **Console** to test different plot commands to visualise the data, saving the code you want to keep back into the **Source pane**, as `pop_change.R`.
-
-6. Use the **Plots tab** in the Files pane to scroll through past plots. Save the best using the Export dropdown button.
-
-The above example shows understanding of these panes and how to use them interactively can help with the speed and productivity of you R programming.
-Further, there are a number of RStudio settings that can help ensure that it works for your needs.
-
-#### RStudio project settings
+The first set of six exercises is about exploring and trying out RStudio interactively. There is no right answer in this case - the best approach is to play around. 
 
 1. Try modifying the look and appearance of your RStudio setup.
 

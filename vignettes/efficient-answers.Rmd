@@ -27,8 +27,6 @@ R.version.string
 
 This can be compared with the latest version, which is described on R's website: [cran.r-project.org/](https://cran.r-project.org/). If you've not got the latest version, consider installing the latest version!
 
-
-
 - Do any of your packages need updating?
 
 To find out which (if any) of your packages need updating use the following command:
@@ -64,7 +62,6 @@ To test if this works, restart the session (e.g. via `Shift+Ctrl+F10` in RStudio
 message("Happy efficient R programming")
 ```
 
-
 - What happens to the startup files in `R_HOME` if you create them in `HOME` or local project directories? 
 
 The `R_HOME` startup files will be ignored. Likewise the `HOME` startup files will be ignored if there are local startup files.
@@ -73,19 +70,27 @@ The `R_HOME` startup files will be ignored. Likewise the `HOME` startup files wi
 
 The first set of six exercises is about exploring and trying out RStudio interactively. There is no right answer in this case - the best approach is to play around. 
 
-1. Try modifying the look and appearance of your RStudio setup.
+- Try modifying the look and appearance of your RStudio setup.
 
-2. What is the keyboard shortcut to show the other shortcut? (Hint: it begins with `Alt+Shift`.)
+Again, there is no right answer to this question. It's worth experimenting a little until the setup is right for you. But it's not worth spending all day doing that from an efficiency perspective!
 
-3. Try as many of the shortcuts revealed by the previous step as you like. Write down the ones that you think will save you time, perhaps on a post-it note to go on your computer.
+- What is the keyboard shortcut to show the other shortcut? (Hint: it begins with `Alt+Shift` on Linux and Windows.)
+
+On Linux and Windows machines `Alt+Shift+K` will show commonly used shortcuts.
+
+- Try as many of the shortcuts revealed by the previous step as you like. Write down the ones that you think will save you time, perhaps on a post-it note to go on your computer.
+
+Again this is highly subjective and only a few handy examples are mentioned here. `Ctl+Up` can be particularly useful for navigating previous commands that have been partially entered. `Ctl+D` deletes the current line while `Alt+Shift+Down` copies it down.
 
 ### BLAS 
 
 ### Exercises
 
-1. Try modifying the look and appearance of your RStudio setup.
+- What BLAS system is your version of R using?
 
-2. What is the keyboard shortcut to show the other shortcut? (Hint: it begins with `Alt+Shift`.)
+You can find out using the **benchmarkme** package:
 
-3. Try as many of the shortcuts revealed by the previous step as you like. Write down the ones that you think will save you time, perhaps on a post-it note to go on your computer.
+```{r}
+benchmarkme::get_linear_algebra()
+```
 

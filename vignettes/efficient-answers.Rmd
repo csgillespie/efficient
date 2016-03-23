@@ -9,11 +9,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+Welcome to the Efficient R Programming answers sheet.
+Here you will find answers to the numerous exercises provided in the book Efficient R Programming.
+
 ## Chapter 2
 
 ### R Version
 
-#### 1. What version of R are you using? Is it the most up-to-date?
+- What version of R are you using? Is it the most up-to-date?
 
 Your R version is stored in a variable called `R.Version`. Enter these commands to find out the version.
 
@@ -24,9 +27,7 @@ R.version.string
 
 This can be compared with the latest version, which is described on R's website: [cran.r-project.org/](https://cran.r-project.org/). If you've not got the latest version, consider installing the latest version!
 
-
-
-#### 2. Do any of your packages need updating?
+- Do any of your packages need updating?
 
 To find out which (if any) of your packages need updating use the following command:
 
@@ -34,5 +35,62 @@ To find out which (if any) of your packages need updating use the following comm
 old.packages()
 ```
 
+### R Startup
 
+- What are the three locations where the startup files are stored? Where are these locations on your computer?
+
+The three locations where startup files can be stored and used are `R_HOME`, `HOME` and the project's working directory. The specific locations of these places will vary from one computer to another but can be found using the following commands:
+
+```{r}
+R.home()
+path.expand("~")
+getwd()
+```
+
+See ?Startup for more details
+
+
+- For each location, does a `.Rprofile` or `.Renviron` file exist?
+
+Navigate to the locations outlined above to find out.
+
+- Create a `.Rprofile` file in your current working directory that prints the message `Happy efficient R programming` each time you start R at this location.
+
+To test if this works, restart the session (e.g. via `Shift+Ctrl+F10` in RStudio) and see if the message appears. Creating the following line in a file called `.Rprofile` in your project's root directory will do this:
+
+```{r}
+message("Happy efficient R programming")
+```
+
+- What happens to the startup files in `R_HOME` if you create them in `HOME` or local project directories? 
+
+The `R_HOME` startup files will be ignored. Likewise the `HOME` startup files will be ignored if there are local startup files.
+
+### RStudio
+
+The first set of six exercises is about exploring and trying out RStudio interactively. There is no right answer in this case - the best approach is to play around. 
+
+- Try modifying the look and appearance of your RStudio setup.
+
+Again, there is no right answer to this question. It's worth experimenting a little until the setup is right for you. But it's not worth spending all day doing that from an efficiency perspective!
+
+- What is the keyboard shortcut to show the other shortcut? (Hint: it begins with `Alt+Shift` on Linux and Windows.)
+
+On Linux and Windows machines `Alt+Shift+K` will show commonly used shortcuts.
+
+- Try as many of the shortcuts revealed by the previous step as you like. Write down the ones that you think will save you time, perhaps on a post-it note to go on your computer.
+
+Again this is highly subjective and only a few handy examples are mentioned here. `Ctl+Up` can be particularly useful for navigating previous commands that have been partially entered. `Ctl+D` deletes the current line while `Alt+Shift+Down` copies it down.
+
+### BLAS 
+
+### Exercises
+
+- What BLAS system is your version of R using?
+
+You can find out using the **benchmarkme** package:
+
+```{r}
+benchmarkme::get_linear_algebra()
+```
 

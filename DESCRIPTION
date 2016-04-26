@@ -13,4 +13,8 @@ Depends:
 Imports:
     Rcpp
 LazyData: TRUE
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 RoxygenNote: 5.0.1

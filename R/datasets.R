@@ -49,4 +49,28 @@ NULL
 #' }
 NULL
 
-
+#' @name land_df
+#' @title UK land use prices
+#' @description Prices paid for land in the UK, open data.
+#' See \url{https://data.gov.uk/dataset/land-registry-monthly-price-paid-data} for details
+#' @docType data
+#' @format A sixteen column data frame.
+#' See \url{https://www.gov.uk/guidance/about-the-price-paid-data} for column descriptions
+#' @examples
+#' \dontrun{
+#' url = paste0("http://prod.publicdata.landregistry.gov.uk",
+#' ".s3-website-eu-west-1.amazonaws.com/pp-monthly-update.txt")
+#' download.file(url = url, destfile = "pp-monthly-update.txt")
+#' land_df = readr::read_csv("pp-monthly-update.txt", col_names = FALSE)
+#' # Get column names
+#' library(rvest)
+#' land_html = read_html("https://www.gov.uk/guidance/about-the-price-paid-data")
+#' land_colnames = html_nodes(land_html, "td:nth-child(1)", )
+#' land_colnames = gsub(pattern = "<td>", replacement = "", land_colnames)
+#' land_colnames = gsub(pattern = "</td>", replacement = "", land_colnames)
+#' land_colnames = abbreviate(land_colnames, minlength = 10)
+#' land_colnames = tolower(land_colnames)
+#' land_df = land_df[1:10000,]
+#' devtools::use_data(land_df, overwrite = TRUE)
+#' }
+NULL

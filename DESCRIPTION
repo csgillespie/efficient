@@ -11,10 +11,10 @@ License: GPL-3 | GPL-2
 Depends:
     R (>= 3.1)
 Imports:
-    Rcpp
+    Rcpp, stats
 LazyData: TRUE
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown, benchmarkme
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

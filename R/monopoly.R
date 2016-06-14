@@ -49,6 +49,8 @@ CommunityChest = function(current) {
   return(goto)
 }
 
+
+#' @importFrom stats runif
 Chance = function(current) {
   u = runif(1)
   goto = current#Default. Do nothing

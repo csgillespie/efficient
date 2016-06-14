@@ -1,0 +1,94 @@
+---
+title: "Exploring Cairo graphics"
+author: "Colin Gillespie"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exploring Cairo graphics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+```
+
+
+Most systems should be able to use Cairographics (or cairo) based graphics devices. 
+To test for this functionality, run
+```{r}
+capabilities("cairo")
+```
+
+The three main operating systems differ in their default graphics device. 
+
+
+OS | Default | Recommendation
+---|---------|---------------
+Linux | `cario` | `cario`
+Windows | `windows` | `cairo`
+Apple | - | - 
+
+
+
+
+----
+
+## Windows
+
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/windows_cairo.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/windows_cairo-png.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/windows_windows.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/windows_default.png", auto_pdf = FALSE)
+```
+
+
+
+
+## Linux
+
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/linux_cairo.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/linux_cairo-png.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/linux_Xlib.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/linux_default.png", auto_pdf = FALSE)
+```
+
+
+### Appendix
+
+```{r}
+## Test function
+f = function(title="") {
+  set.seed(1)
+  par(mar=c(3,3,2,1), mgp=c(2,0.4,0), tck=-.01,
+      cex.axis=0.9, las=1)
+  plot(rnorm(100), rnorm(100), pch=21, bg="steelblue", 
+       main=paste(title, "device"), 
+       xlab="x-axis label", ylab="y-axis label", 
+       xlim=c(-3,3), ylim=c(-3,3))
+  text(0,3,
+       "Le français, c'est façile: Règles, Liberté, Egalité, Fraternité...", 
+       cex=0.8)
+  text(-2,-3, "italic text", font=3, cex=0.9)
+  text(2,-3, "Bold text", font=2, cex=0.9)
+  grid()
+}
+```
+
+

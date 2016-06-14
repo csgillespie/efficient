@@ -1,10 +1,10 @@
 ---
-title: "Exploring Cairo graphics"
+title: "Exploring Cairo png graphics"
 author: "Colin Gillespie"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Exploring Cairo graphics}
+  %\VignetteIndexEntry{Exploring Cairo png graphics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,23 +21,37 @@ To test for this functionality, run
 ```{r}
 capabilities("cairo")
 ```
+If you are using an Apple computer, then you have access to `quartz`, which starts the
+device driver for the OS X system^[Thanks to Bob Rudis for running the Apple example.].
+```{r}
+capabilities("quartz")
+```
 
-The three main operating systems differ in their default graphics device. 
+When saving a file as a png, we can specify which graphics device to use using the 
+`type` argument, e.g.
+```{r eval=FALSE}
+png("figure1.png", type="cairo")
+```
 
+The three main operating systems differ in their default graphics device, i.e the value they
+use if the `type` argument is ommitted from the `png` function
+call. For Linux and Apple systems, the default is typically optimal. However for Windows, it is worthwhile
+changing to cario
 
-OS | Default | Recommendation
----|---------|---------------
-Linux | `cario` | `cario`
-Windows | `windows` | `cairo`
-Apple | - | - 
-
-
+```{r echo=FALSE, fig}
+dd = data.frame(OS = c("Windows", "Apple", "Linux"), 
+                Default = c("windows", "quartz", "cairo"), 
+                Recommendation = c("cairo", "quartz", "cairo"))
+knitr::kable(dd, caption="Default values of the `type` argument in the `png` function.")
+```
 
 
 ----
 
 ## Windows
-
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/windows_default.png", auto_pdf = FALSE)
+```
 ```{r, echo=FALSE}
 knitr::include_graphics("graphics/windows_cairo.png", auto_pdf = FALSE)
 ```
@@ -47,15 +61,27 @@ knitr::include_graphics("graphics/windows_cairo-png.png", auto_pdf = FALSE)
 ```{r, echo=FALSE}
 knitr::include_graphics("graphics/windows_windows.png", auto_pdf = FALSE)
 ```
+
+## Apple 
+
 ```{r, echo=FALSE}
-knitr::include_graphics("graphics/windows_default.png", auto_pdf = FALSE)
+knitr::include_graphics("graphics/apple_default.png", auto_pdf = FALSE)
 ```
-
-
-
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/apple_cairo.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/apple_cairo-png.png", auto_pdf = FALSE)
+```
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/apple_quartz.png", auto_pdf = FALSE)
+```
 
 ## Linux
 
+```{r, echo=FALSE}
+knitr::include_graphics("graphics/linux_default.png", auto_pdf = FALSE)
+```
 ```{r, echo=FALSE}
 knitr::include_graphics("graphics/linux_cairo.png", auto_pdf = FALSE)
 ```
@@ -65,10 +91,6 @@ knitr::include_graphics("graphics/linux_cairo-png.png", auto_pdf = FALSE)
 ```{r, echo=FALSE}
 knitr::include_graphics("graphics/linux_Xlib.png", auto_pdf = FALSE)
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("graphics/linux_default.png", auto_pdf = FALSE)
-```
-
 
 ### Appendix
 

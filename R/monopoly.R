@@ -78,6 +78,11 @@ Chance = function(current) {
   return(goto)
 }
 
+
+#' Monte Carlo Simulation of Monopoly
+#' 
+#' An R function for simulating the game of Monopoly
+#' @param no_of_turns How many dice rolls should we take
 #' @export
 SimulateMonopoly = function(no_of_turns) {    
   landings = numeric(40)

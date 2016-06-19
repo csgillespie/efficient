@@ -50,7 +50,30 @@ NULL
 #' land_colnames = gsub(pattern = "</td>", replacement = "", land_colnames)
 #' land_colnames = abbreviate(land_colnames, minlength = 10)
 #' land_colnames = tolower(land_colnames)
+#' names(land_df) = land_colnames
 #' land_df = land_df[1:10000,]
 #' devtools::use_data(land_df, overwrite = TRUE)
+#' }
+NULL
+
+#' @name co2_ems
+#' @title Worldwide emissions of CO2 by sector, country and year.
+#' 
+#' @description Emissions data from the World Resources Institute,
+#' from their website:
+#' \url{http://www.wri.org/resources/data-sets/cait-country-greenhouse-gas-emissions-data}.
+#' @docType data
+#' @format A seven column data frame.
+#' See \url{https://www.gov.uk/guidance/about-the-price-paid-data} for column descriptions
+#' @examples
+#' \dontrun{
+#' # After completing the form,
+#' # and downloading the .zip file into the working directory:
+#' unzip("CAIT_Country_GHG_Emissions_-_csv_0.zip")
+#' f <- "CAIT_Country_GHG_Emissions_-_All_Data.xlsx"
+#' ghg_ems <- readxl::read_excel(f, sheet = 4)
+#' head(ghg_ems)
+#' names(ghg_ems) = stringr::word(names(ghg_ems), sep = " |/")
+#' devtools::use_data(ghg_ems, overwrite = TRUE)
 #' }
 NULL

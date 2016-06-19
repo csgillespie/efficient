@@ -11,3 +11,4 @@ vignettes/*.pdf
 .Rproj.user
 inst/doc
 CAIT*
+License.txt

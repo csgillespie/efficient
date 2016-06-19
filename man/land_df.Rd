@@ -24,6 +24,7 @@ land_colnames = gsub(pattern = "<td>", replacement = "", land_colnames)
 land_colnames = gsub(pattern = "</td>", replacement = "", land_colnames)
 land_colnames = abbreviate(land_colnames, minlength = 10)
 land_colnames = tolower(land_colnames)
+names(land_df) = land_colnames
 land_df = land_df[1:10000,]
 devtools::use_data(land_df, overwrite = TRUE)
 }

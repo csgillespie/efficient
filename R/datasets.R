@@ -28,26 +28,6 @@ NULL
 #' @docType data
 NULL
 
-#' @name transistors
-#' @title Transistor counts
-#' @description The number of transistors per CPU. The data was scrapped from 
-#' https://en.wikipedia.org/wiki/Transistor_count (see example below)
-#' @docType data
-#' @examples 
-#' \dontrun{
-#' library("rvest")
-#' library("magrittr")
-#' 
-#' trans_count = read_html("https://en.wikipedia.org/wiki/Transistor_count")
-#' trans_table = trans_count %>% 
-#'   html_nodes("table") %>% 
-#'   .[[1]] %>% html_table
-#' trans_table[,2] = gsub("\\[[0-9]*\\]", "", trans_table[,2])
-#' trans_table[,2] = as.numeric(gsub(",|~", "", trans_table[,2]))
-#' trans_table[,3] = as.numeric(gsub("\\[[0-9]*\\]", "", trans_table[,3]))
-#' colnames(trans_table)[2:3] = c("Count", "Year")
-#' }
-NULL
 
 #' @name land_df
 #' @title UK land use prices

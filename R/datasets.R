@@ -28,6 +28,26 @@ NULL
 #' @docType data
 NULL
 
+#' @name transistors
+#' @title Transistor counts
+#' @description The number of transistors per CPU. The data was scrapped from 
+#' https://en.wikipedia.org/wiki/Transistor_count (see example below)
+#' @docType data
+#' @examples 
+#' \dontrun{
+#' library("rvest")
+#' library("magrittr")
+#' 
+#' trans_count = read_html("https://en.wikipedia.org/wiki/Transistor_count")
+#' trans_table = trans_count %>% 
+#'   html_nodes("table") %>% 
+#'   .[[1]] %>% html_table
+#' trans_table[,2] = gsub("\\[[0-9]*\\]", "", trans_table[,2])
+#' trans_table[,2] = as.numeric(gsub(",|~", "", trans_table[,2]))
+#' trans_table[,3] = as.numeric(gsub("\\[[0-9]*\\]", "", trans_table[,3]))
+#' colnames(trans_table)[2:3] = c("Count", "Year")
+#' }
+NULL
 
 #' @name land_df
 #' @title UK land use prices
@@ -56,9 +76,8 @@ NULL
 #' }
 NULL
 
-#' @name co2_ems
-#' @aliases ghg_ems
-#' @title Worldwide emissions of CO2 by sector, country and year.
+#' @name ghg_ems
+#' @title Worldwide emissions of greenhouse gases by sector, country and year.
 #' 
 #' @description Emissions data from the World Resources Institute,
 #' from their website:

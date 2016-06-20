@@ -4,3 +4,10 @@ cache: packages
 install_r:
   - devtools
 
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+before_install:
+  - tlmgr install fancyvrb units

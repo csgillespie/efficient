@@ -76,8 +76,8 @@ NULL
 #' }
 NULL
 
-#' @name co2_ems
-#' @title Worldwide emissions of CO2 by sector, country and year.
+#' @name ghg_ems
+#' @title Worldwide emissions of greenhouse gases by sector, country and year.
 #' 
 #' @description Emissions data from the World Resources Institute,
 #' from their website:

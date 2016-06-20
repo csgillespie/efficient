@@ -3,6 +3,7 @@
 \docType{data}
 \name{co2_ems}
 \alias{co2_ems}
+\alias{ghg_ems}
 \title{Worldwide emissions of CO2 by sector, country and year.}
 \format{A seven column data frame.
 See \url{https://www.gov.uk/guidance/about-the-price-paid-data} for column descriptions}

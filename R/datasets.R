@@ -64,7 +64,6 @@ NULL
 #' \url{http://www.wri.org/resources/data-sets/cait-country-greenhouse-gas-emissions-data}.
 #' @docType data
 #' @format A seven column data frame.
-#' See \url{https://www.gov.uk/guidance/about-the-price-paid-data} for column descriptions
 #' @examples
 #' \dontrun{
 #' # After completing the form,

@@ -2,10 +2,37 @@
 % Please edit documentation in R/datasets.R
 \docType{data}
 \name{miniaa}
-\alias{idata_mutate}
 \alias{miniaa}
-\title{A data set}
+\title{Dataset from National Provider Indentifier (NPI) dataset.}
 \description{
-A data set
+Sample health care providers in the USA. Health plans were
+required to obtain and use an NPI by May 23, 2008. See 
+\url{http://www.nber.org/data/npi.html} for more information
+}
+\examples{
+\dontrun{ 
+url <- "http://download.cms.gov/nppes/NPPES_Data_Dissemination_Aug_2015.zip"
+# download a large dataset - don't run
+download.file(url, "data/largefile.zip")
+## 550600K .......... ...... 100\% 1.26M=6m53s
+# unzip the compressed file, measure time
+system.time( 
+  unzip("data/largefile.zip", exdir = "data")
+)
+##    user  system elapsed 
+##  34.380  22.428 193.145
+
+bigfile <- "data/npidata_20050523-20150809.csv"
+file.info(bigfile) # file info (not all shown)
+##       size: 5647444347
+
+# bash scripts to generate the file:
+cd data # change directory
+split -b100m npidata_20050523-20150809.csv
+system.time(df3 <- read.csv("data/xaa"))
+system.time(df4 <- read_csv("data/xaa"))
+split -l 10 aa mini # further split chunk 'aa' into 10 lines
+cp miniaa ../data # copy the first into 'sample-data'
+}
 }
 

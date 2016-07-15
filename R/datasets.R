@@ -76,3 +76,12 @@ NULL
 #' devtools::use_data(ghg_ems, overwrite = TRUE)
 #' }
 NULL
+
+#' @name miniaa
+#' @aliases idata_mutate
+#' @title A data set
+#' 
+#' @description A data set
+#' @docType data
+NULL
+

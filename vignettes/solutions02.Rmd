@@ -18,7 +18,7 @@ Here you will find answers to the numerous exercises provided in the book Effici
 
 - What version of R are you using? Is it the most up-to-date?
 
-Your R version is stored in a variable called `R.Version`. Enter these commands to find out the version.
+Your R version is stored in a variable called `R.version`. Enter these commands to find out the version.
 
 ```{r}
 R.version

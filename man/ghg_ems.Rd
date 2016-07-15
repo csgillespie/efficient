@@ -4,8 +4,7 @@
 \name{ghg_ems}
 \alias{ghg_ems}
 \title{Worldwide emissions of greenhouse gases (ghg) by sector, country and year.}
-\format{A seven column data frame.
-See \url{https://www.gov.uk/guidance/about-the-price-paid-data} for column descriptions}
+\format{A seven column data frame.}
 \description{
 Emissions data from the World Resources Institute,
 from their website:

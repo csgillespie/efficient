@@ -141,5 +141,11 @@ NULL
 #' dir.create("extdata/reshape")
 #' unzip("v59i10-data.zip", exdir = "extdata/reshape/")
 #' # write.csv(raw, "extdata/reshape-pew.csv")
+#' # generate pew dataset
+#' pew = read_csv("extdata/reshape-pew.csv")
+#' pew = pew[-c(1, ncol(pew))] # remove excess cols
+#' names(pew) = c("religion", "<$10k", "$10--20k", "$20--30k", "$30--40k",
+#'                "$40--50k", "$50--75k", "$75--100k", "$100--150k", ">150k")
+#' # write_csv(pew, "extdata/pew.csv")
 #' }
 NULL

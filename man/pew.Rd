@@ -12,9 +12,11 @@ See \url{https://www.jstatsoft.org/article/view/v059i10} for more information.
 \examples{
 \dontrun{
 # Download data from its original source - an academic paper
-downloader::download("http://www.jstatsoft.org/v59/i10/supp/4", destfile = "v59i10-data.zip")
+downloader::download("http://www.jstatsoft.org/v59/i10/supp/4",
+ destfile = "v59i10-data.zip")
 # The source code associated with the paper
-#'downloader::download("http://www.jstatsoft.org/v59/i10/supp/3", destfile = "extdata/reshape/v59i10.R")
+#'downloader::download("http://www.jstatsoft.org/v59/i10/supp/3",
+ destfile = "extdata/reshape/v59i10.R")
 # After running the R script...
 dir.create("extdata/reshape")
 unzip("v59i10-data.zip", exdir = "extdata/reshape/")

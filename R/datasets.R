@@ -159,8 +159,4 @@ NULL
 #' the simplify function from the mapshaper package and the \code{fortify} function from the ggplot2 package.
 #' @docType data
 #' @format A data frame with 4 variables and 211 rows
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 NULL

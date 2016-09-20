@@ -9,9 +9,4 @@
 Generated from the \url{https://github.com/Robinlovelace/Creating-maps-in-R} tutorial using
 the simplify function from the mapshaper package and the \code{fortify} function from the ggplot2 package.
 }
-\examples{
-\dontrun{
-
-}
-}
 

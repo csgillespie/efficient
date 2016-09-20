@@ -123,3 +123,23 @@ NULL
 #' @docType data
 #' @format A nine column data frame.
 NULL
+
+#' @name pew
+#' @title pew dataset from the reshape paper dataset in JSS inequality by, country and year.
+#' 
+#' @description Dataset collected by Pew with counts of people cross-tabulated by religion and income band.
+#' See \url{https://www.jstatsoft.org/article/view/v059i10} for more information.
+#' @docType data
+#' @format A data frame with 18 rows by 10 columns
+#' @examples 
+#' \dontrun{
+#' # Download data from its original source - an academic paper
+#' downloader::download("http://www.jstatsoft.org/v59/i10/supp/4", destfile = "v59i10-data.zip")
+#' # The source code associated with the paper
+#' #'downloader::download("http://www.jstatsoft.org/v59/i10/supp/3", destfile = "extdata/reshape/v59i10.R")
+#' # After running the R script...
+#' dir.create("extdata/reshape")
+#' unzip("v59i10-data.zip", exdir = "extdata/reshape/")
+#' # write.csv(raw, "extdata/reshape-pew.csv")
+#' }
+NULL

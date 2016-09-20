@@ -134,9 +134,11 @@ NULL
 #' @examples 
 #' \dontrun{
 #' # Download data from its original source - an academic paper
-#' downloader::download("http://www.jstatsoft.org/v59/i10/supp/4", destfile = "v59i10-data.zip")
+#' downloader::download("http://www.jstatsoft.org/v59/i10/supp/4",
+#'  destfile = "v59i10-data.zip")
 #' # The source code associated with the paper
-#' #'downloader::download("http://www.jstatsoft.org/v59/i10/supp/3", destfile = "extdata/reshape/v59i10.R")
+#' #'downloader::download("http://www.jstatsoft.org/v59/i10/supp/3",
+#'  destfile = "extdata/reshape/v59i10.R")
 #' # After running the R script...
 #' dir.create("extdata/reshape")
 #' unzip("v59i10-data.zip", exdir = "extdata/reshape/")
@@ -147,5 +149,18 @@ NULL
 #' names(pew) = c("religion", "<$10k", "$10--20k", "$20--30k", "$30--40k",
 #'                "$40--50k", "$50--75k", "$75--100k", "$100--150k", ">150k")
 #' # write_csv(pew, "extdata/pew.csv")
+#' }
+NULL
+
+#' @name lnd_geo_df
+#' @title Simple geographical/population data of boroughs in London with 
+#' 
+#' @description Generated from the \url{https://github.com/Robinlovelace/Creating-maps-in-R} tutorial using
+#' the simplify function from the mapshaper package and the \code{fortify} function from the ggplot2 package.
+#' @docType data
+#' @format A data frame with 4 variables and 211 rows
+#' @examples 
+#' \dontrun{
+#' 
 #' }
 NULL

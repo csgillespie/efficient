@@ -112,7 +112,7 @@ NULL
 #' @docType data
 NULL
 
-#' @name idata
+#' @name wb_ineq
 #' @title Global inequality by, country and year.
 #' 
 #' @description Estimates of the level of income inequality, using the Gini index,

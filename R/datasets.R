@@ -113,12 +113,13 @@ NULL
 NULL
 
 #' @name wb_ineq
+#' @aliases wb_ineq_renamed
 #' @title Global inequality by, country and year.
 #' 
 #' @description Estimates of the level of income inequality, using the Gini index,
 #' from World Bank data. See
 #' \url{http://data.worldbank.org/indicator/SI.POV.GINI?locations=AT}
-#' for further information.
+#' for further information. \code{wb_ineq_renamed} is a version of the dataset with updated names.
 #' @docType data
 #' @format A nine column data frame.
 NULL

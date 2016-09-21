@@ -1,4 +1,5 @@
 ##Dice function
+#' @export
 move = function(current) {
   
   df = data.frame(d1 = sample(1:6, 3, replace=TRUE), 

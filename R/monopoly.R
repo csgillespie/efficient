@@ -1,8 +1,8 @@
 ##Dice function
 #' @export
 move_square = function(current) {
-  df = data.frame(d1 = sample(1:6, 3, replace = TRUE),
-                  d2 = sample(1:6, 3, replace = TRUE))
+  df = data.frame(d1 = sample(seq(1, 6), 3, replace = TRUE),
+                  d2 = sample(seq(1, 6), 3, replace = TRUE))
   
   df$Total = apply(df, 1, sum)
   df$IsDouble = df$d1 == df$d2

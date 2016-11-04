@@ -1,4 +1,8 @@
-##Dice function
+#' Moving square on a Monopoly board
+#' 
+#' @param current The current square. Number between 1 and 40.
+#' This function calculates where you will land on your next move.
+#' 
 #' @export
 move_square = function(current) {
   df = data.frame(d1 = sample(seq(1, 6), 3, replace = TRUE),

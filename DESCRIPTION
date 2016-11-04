@@ -15,6 +15,6 @@ Imports:
 LazyData: TRUE
 Suggests:
     knitr,
-    rmarkdown, benchmarkme
+    rmarkdown, benchmarkme, microbenchmark, ggplot2, dplyr, stringr, scales, ggmap
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

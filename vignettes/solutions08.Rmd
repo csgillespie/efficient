@@ -1,0 +1,51 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chapter 8 solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 8 solutions}
+-->
+
+### Exercises {-}
+
+The following two exercises aim to help you determine if it is worthwhile upgrading your RAM.
+
+1. R loads everything into memory, i.e. your computers RAM. How much RAM does your computer you have?
+
+    The **benchmarkme** package provides a function for obtaining the amount of RAM on your system:
+    ```{r results="hide"}
+    benchmarkme::get_ram()
+    ```
+
+2. Using your preferred search engine, how much does it cost to double the amount of available RAM on your system? 
+
+    16GB of RAM costs around £90/$110.
+
+
+### Exercises {-}
+
+These exercises aim to condense the previous section into the key points.
+
+1. Are you using $32$-bit or $64$-bit version of R?
+
+    An easy of to tell is to look at `.Machine$sizeof.pointer`:
+    ```{r}
+    if(.Machine$sizeof.pointer == 8) 64 else 32
+    ```
+2. If you are using Windows, what are the results of running the command `memory.limit()`?
+
+
+### Exercise {-}
+
+To assess whether you should consider cloud computing, how much does it cost to rent a machine comparable to your laptop in the cloud?
+
+  * [On-demand](https://aws.amazon.com/ec2/pricing/on-demand/) amazon service. 
+  * Spot instances are much cheaper; you bid for compute power.
+

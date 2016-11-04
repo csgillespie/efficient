@@ -1,0 +1,23 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chapter 4 solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 4 solutions}
+-->
+#### Exercises {-}
+
+1. What are the three most important work 'chunks' of your current R project?
+
+1. What is the meaning of 'SMART' objectives (see [Making your workflow SMART](#smart)).
+
+1. Run the [code chunk](#DiagrammeR) at the end of this section to see the output.
+
+1. Bonus exercise: modify this code to create a basic Gantt chart of an R project you are working on.

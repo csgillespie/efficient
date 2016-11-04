@@ -17,8 +17,80 @@ vignette: >
 ## Chapter 7 Solutions
 
 
+### Base R timings
+
+
+#### Exercises {-}
+
+  1. Create a vector `x`. Benchmark `any(is.na(x))` against `anyNA()`. Do the results vary with the size of the vector.
+
+  1. Examine the following function definitions to give you an idea of how integers are used.
+    * `tail.matrix()`
+    * `lm()`. 
+
+  1. Construct a matrix of integers and a matrix of numerics. Using `pryr::object_size()`, compare the 
+  objects.
+  
+  1. How does the function `seq.int()`, which was used in the `tail.matrix()` function, 
+  differ to the standard `seq()` function?
+
+```{block, type="rmdnote"}
+A related memory saving idea is to replace `logical` vectors
+with vectors from the **bit** package which take up just over 16th of the space
+(but you can't use `NA`s).
+```
+
+
+#### Comparing which.max and which
+```{r}
+data<-matrix(NA,nrow=10,ncol=2)
+
+ns<- 10^(seq(from=log10(10),to=log10(10^6),length.out =nrow(data)))
+
+n.rep<-3 #Number of times to generate a test sample. This smooths the chart.
+
+for (i in seq_len(nrow(data)))
+{
+  tmp<-matrix(NA,nrow=n.rep,ncol=2)
+  for(j in 1:n.rep)
+  {
+    s<-sample(c(TRUE,FALSE),ns[i],TRUE,prob=c(1-0.0001,0.0001))
+    tmp[j,]<-summary(microbenchmark(
+      which.max(s),
+      which(s)[[1]]))[['median']]
+  }
+  data[i,1]<-mean(tmp[,1])
+  data[i,2]<-mean(tmp[,2])
+  cat(paste0('.'))
+}
+
+data<-cbind(ns,data)
+
+data<-as.data.frame(data)
+names(data)<-c('N','which.max','which')
+
+library(ggplot2)
+library(scales)
+colors <- c("which"="blue","which.max"="grey")
+ggplot(data,aes(x=N)) +
+  geom_line(aes(y=which.max, color='which.max')) +
+  geom_line(aes(y=which,color='which')) +
+  scale_x_continuous(trans=log10_trans()) +
+  scale_linetype_manual(values='colors',name='Function') +
+  scale_y_continuous(trans=log10_trans()) +
+  ylab("Execution time") + xlab("Vector size")
+```
+
+
 ### Profvis Monopoly
 
+#### Exercise {-}
+
+The `move_square()` function above uses a vectorised solution. Whenever we move, we
+always roll six dice, then examine the outcome and determine the number of doubles.
+However, this is potentially wasteful, since the probability of getting one double is
+$1/6$ and two doubles is $1/36$. Another method is too only roll additional dice if
+and when they are needed. Implement and time this solution.
 
 ```{r eval=FALSE}
 ## Original function
@@ -87,3 +159,33 @@ profvis({
   }
 }, interval = 0.005)
 ```
+
+
+
+#### Exercises {-}
+
+Consider the following piece of code
+
+```{Rcpp eval=FALSE, tidy=FALSE}
+double test1() {
+  double a = 1.0 / 81;
+  double b = 0;
+  for (int i = 0; i < 729; ++ i)
+    b = b + a;
+  return b;
+}
+```
+
+1. Save the function `test1()` in a separate file. Make sure it works.
+2. Write a similar function in R and compare the speed of the C++ and R versions.
+3. Create a function called `test2()` where the `double` variables have been replaced by `float`. Do you still get the correct answer?
+4. Change `b = b + a` to `b += a` to make your code more C++ like. 
+5. (Hard) What's the difference between `i++` and `++i`?
+
+
+#### Exercises {-}
+
+1. Construct an R version (using a `for` loop rather than the vectorised solution),
+`res_r()` and compare the three function variants. 
+1. In the above example, `res_sugar()` is faster than `res_c()`. Do you know why?
+

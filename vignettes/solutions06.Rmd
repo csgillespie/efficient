@@ -1,0 +1,129 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chapter 6 solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 6 solutions}
+-->
+
+
+#### Exercise {-}
+
+Create the following data frame
+```{r}
+df_base = data.frame(colA = "A")
+```
+Try and guess the output of the following commands
+
+```{r results="hide"}
+print(df_base)
+df_base$colA
+df_base$col
+df_base$colB
+```
+Now create a tibble data frame and repeat the above commands.
+
+#### Exercises {-}
+
+1. What are the three criteria of tidy data?
+
+2. Load and look at subsets of these datasets. The first is the `pew` datasets we've been using already. The second reports the points that define, roughly, the geographical boundaries of different London boroughs. What is 'untidy' about each?
+
+```{r, warning=FALSE}
+head(pew, 10)
+data(lnd_geo_df)
+head(lnd_geo_df, 10)
+```
+
+3. Convert each of the above datasets into tidy form.
+
+4. Consider the following string of phone numbers and fruits from [@wickham2010stringr]:
+
+```{r}
+strings = c(" 219 733 8965", "329-293-8753 ", "banana", "595 794 7569",
+             "387 287 6718", "apple", "233.398.9187  ", "482 952 3315", "239 923 8115",
+             "842 566 4692", "Work: 579-499-7527", "$1000", "Home: 543.355.3679")
+```
+
+Write functions in **stringr** and base R that return:
+
+- A logical vector reporting whether or not each string contains a number.
+- Complete words only, without extraneous non-letter characters.
+
+```{r}
+str_detect(string = strings, pattern = "[0-9]")
+str_extract(strings, pattern = "[A-z]+")
+```
+
+#### Exercises {-}
+
+1. Try running each of the chaining examples above line-by-line, so the first two entries for the first example would look like this:
+
+```{r}
+wb_ineq
+```
+
+followed by:
+
+```{r}
+wb_ineq %>% 
+  select(Year, gini) 
+```
+
+Explain in your own words what changes each time.
+
+2. Use chained **dplyr** functions to answer the following question: In which year did countries without and 'a' in their name have the lowest level of inequality?
+
+
+#### Exercises {-}
+
+1. Refer back to the greenhouse gas emissions example at the outset of section \@ref(dplyr), in which we found the top 3 countries in terms of emissions growth in the transport sector. a) Explain in words what is going on in each line. b) Try to find the top 3 countries in terms of emissions in 2012 - how is the list different?
+
+
+2. Explore **dplyr**'s documentation, starting with the introductory vignette, accessed by entering [`vignette("introduction")`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html).
+
+3. Test additional **dplyr** 'verbs' on the `wb_ineq` dataset. (More vignette names can be discovered by typing `vignette(package = "dplyr")`.)
+
+#### Exercises {-}
+
+Follow the worked example below to create and query a database on land prices in the UK using **dplyr** as a front end to an SQLite database. 
+The first stage is to read-in the data:
+
+```{r}
+# See help("land_df", package="efficient") for details
+data(land_df, package="efficient")
+```
+
+The next stage is to create an SQLite database to hold the data:
+
+```{r}
+# install.packages("RSQLite") # Requires RSQLite package
+my_db = src_sqlite("land.sqlite3", create = TRUE)
+land_sqlite = copy_to(my_db, land_df, indexes = list("postcode", "price")) 
+```
+
+What class is the new object `land_sqlite`?
+
+Why did we use the `indexes` argument?
+
+From the above code we can see that we have created a `tbl`. This can be accessed using **dplyr** in the same way as any data frame can. Now we can query the data. You can use SQL code to query the database directly or use standard **dplyr** verbs on the table.
+
+```{r}
+# Method 1: using sql
+tbl(my_db, sql('SELECT "price", "postcode", "old/new"  FROM land_df'))
+```
+
+How would you erform the same query using `select()`? Try it to see if you get the same result (hint: use backticks for the `old/new` variable name).
+
+```{r, echo=FALSE}
+# Method 2: using dplyr
+select(land_sqlite, price, postcode, `old/new`)
+```
+

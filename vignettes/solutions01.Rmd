@@ -1,0 +1,66 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chapter 1 solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 1 solutions}
+-->
+
+#### Exercises
+
+Consider the following benchmark to evaluate different functions for calculating the cumulative sum of the whole numbers from 1 to 100:
+
+```{r}
+x = 1:100 # initiate vector to cumulatively sum
+
+# Method 1: with a for loop (10 lines)
+cs_for = function(x){
+  for(i in x){
+    if(i == 1){
+      xc = x[i]
+    } else {
+      xc = c(xc, sum(x[1:i]))
+    }
+  }
+  xc
+}
+
+# Method 2: with apply (3 lines)
+cs_apply = function(x){
+  sapply(x, function(x) sum(1:x))
+}
+
+# Method 3: cumsum (1 line, not shown)
+microbenchmark(cs_for(x), cs_apply(x), cumsum(x))
+```
+
+1. Which method is fastest and how many times faster is it?
+
+2. Run the same benchmark, but with the results reported in seconds, on a vector of all the whole numbers from 1 to 50,000. Hint: also use the argument `neval = 1` so that each command is only run once to ensure the results complete (even with a single evaluation the benchmark may take up to or more than a minute to complete, depending on your system). Does the *relative* time difference increase or decrease? By how much?
+
+```{r, eval=FALSE, echo=FALSE}
+x = 1:5e4 # initiate vector to cumulatively sum
+microbenchmark(cs_for(x), cs_apply(x), cumsum(x), times = 1, unit = "s")
+```
+
+3. Test how long the different methods for subsetting the data frame `df`, presented in Section \@ref(benchmarking-example), take on your computer. Is is faster or slower at subsetting than the computer on which this book was compiled?
+
+4. Use `system.time()` and a `for()` loop to test how long it takes to perform the subsetting operation 50,000 times. Before testing this, do you think it will be more or less than 1 second, for each subsetting method? Hint: the test for the first method is shown below:
+
+```{r, eval=FALSE}
+# Test how long it takes to subset the data frame 50,000 times:
+system.time(
+  for(i in 1:50000){
+    df[3, 2]
+  }
+)
+```
+
+5. Bonus exercise: try profiling a section of code you have written using **profvis**. Where are the bottlenecks? Were they where you expected?

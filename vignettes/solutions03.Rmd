@@ -1,0 +1,69 @@
+---
+title: "Answers to exercises in Efficient R Programming"
+author: "Colin Gillespie and Robin Lovelace"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chapter 3 solutions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3 solutions}
+-->
+
+#### Exercise {-}
+
+Use the **microbenchmark** package to compare the vectorised construct `x = x + 1`, to the
+`for` loop version. Try varying the size of the input vector.
+
+#### Exercises {-}
+
+1. Time the two methods for calculating the log sum. 
+1. What happens when the `length(x) = 0`, i.e. we have an empty vector?
+
+
+### Exercise {-}
+
+Verify that `monte_carlo_vec()` is faster than `monte_carlo()`. How does this relate to 
+the number of darts, i.e. the size of `N`, that is used
+
+
+### Exercises {-}
+
+The `stop()` function has an argument `call.` that indicates if the function call
+should be part of the error message. Create a function and experiment with this option.
+
+
+#### Exercise {-}
+
+Factors are slightly more space efficient than characters. Create a character vector
+and corresponding factor and use `pryr::object_size()` to calculate the space needed for
+each object.
+
+```{r echo=FALSE, eval=FALSE}
+ch = sample(month.name, 1e6, replace = TRUE)
+fac = factor(ch, levels = month.name)
+pryr::object_size(ch)
+pryr::object_size(fac)
+```
+
+#### Exercises {-}
+
+1. Rewrite the `sapply()` function calls above using `vapply()` to ensure type consistency.
+
+1. How would you make subsetting data frames with `[` type consistent? Hint: look at
+the `drop` argument.
+
+#### Exercise {-}
+
+Construct a box plot of timings for the standard plotting function and the memoised
+version. 
+
+#### Exercise {-}
+
+1. Write a stop-watch function __without__ using function closures.
+1. Many stop-watches have the ability to measure not only your overall time but also you
+individual laps. Add a `lap()` function to the `stop_watch()` function that will record
+individual times, while still keeping track of the overall time.

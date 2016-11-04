@@ -37,8 +37,9 @@ Now create a tibble data frame and repeat the above commands.
 2. Load and look at subsets of these datasets. The first is the `pew` datasets we've been using already. The second reports the points that define, roughly, the geographical boundaries of different London boroughs. What is 'untidy' about each?
 
 ```{r, warning=FALSE}
+data(pew, package="efficient")
 head(pew, 10)
-data(lnd_geo_df)
+data(lnd_geo_df, package="efficient")
 head(lnd_geo_df, 10)
 ```
 
@@ -58,6 +59,7 @@ Write functions in **stringr** and base R that return:
 - Complete words only, without extraneous non-letter characters.
 
 ```{r}
+library(stringr)
 str_detect(string = strings, pattern = "[0-9]")
 str_extract(strings, pattern = "[A-z]+")
 ```
@@ -67,12 +69,14 @@ str_extract(strings, pattern = "[A-z]+")
 1. Try running each of the chaining examples above line-by-line, so the first two entries for the first example would look like this:
 
 ```{r}
+data("wb_ineq", package="efficient")
 wb_ineq
 ```
 
 followed by:
 
 ```{r}
+library(dplyr)
 wb_ineq %>% 
   select(Year, gini) 
 ```

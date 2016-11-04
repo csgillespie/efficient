@@ -42,7 +42,7 @@ with vectors from the **bit** package which take up just over 16th of the space
 
 
 #### Comparing which.max and which
-```{r}
+```{r, eval=FALSE}
 data<-matrix(NA,nrow=10,ncol=2)
 
 ns<- 10^(seq(from=log10(10),to=log10(10^6),length.out =nrow(data)))
@@ -55,7 +55,7 @@ for (i in seq_len(nrow(data)))
   for(j in 1:n.rep)
   {
     s<-sample(c(TRUE,FALSE),ns[i],TRUE,prob=c(1-0.0001,0.0001))
-    tmp[j,]<-summary(microbenchmark(
+    tmp[j,]<-summary(microbenchmark::microbenchmark(
       which.max(s),
       which(s)[[1]]))[['median']]
   }

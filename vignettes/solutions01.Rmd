@@ -38,7 +38,7 @@ cs_apply = function(x){
 }
 
 # Method 3: cumsum (1 line, not shown)
-microbenchmark(cs_for(x), cs_apply(x), cumsum(x))
+microbenchmark::microbenchmark(cs_for(x), cs_apply(x), cumsum(x))
 ```
 
 1. Which method is fastest and how many times faster is it?

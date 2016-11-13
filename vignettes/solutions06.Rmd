@@ -17,12 +17,12 @@ vignette: >
 #### Exercise {-}
 
 Create the following data frame
-```{r}
+```{r, eval=FALSE}
 df_base = data.frame(colA = "A")
 ```
 Try and guess the output of the following commands
 
-```{r results="hide"}
+```{r results="hide", eval=FALSE}
 print(df_base)
 df_base$colA
 df_base$col
@@ -36,7 +36,7 @@ Now create a tibble data frame and repeat the above commands.
 
 2. Load and look at subsets of these datasets. The first is the `pew` datasets we've been using already. The second reports the points that define, roughly, the geographical boundaries of different London boroughs. What is 'untidy' about each?
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, eval=FALSE}
 data(pew, package="efficient")
 head(pew, 10)
 data(lnd_geo_df, package="efficient")
@@ -58,7 +58,7 @@ Write functions in **stringr** and base R that return:
 - A logical vector reporting whether or not each string contains a number.
 - Complete words only, without extraneous non-letter characters.
 
-```{r}
+```{r, eval=FALSE}
 library(stringr)
 str_detect(string = strings, pattern = "[0-9]")
 str_extract(strings, pattern = "[A-z]+")
@@ -68,14 +68,14 @@ str_extract(strings, pattern = "[A-z]+")
 
 1. Try running each of the chaining examples above line-by-line, so the first two entries for the first example would look like this:
 
-```{r}
+```{r, eval=FALSE}
 data("wb_ineq", package="efficient")
 wb_ineq
 ```
 
 followed by:
 
-```{r}
+```{r, eval=FALSE}
 library(dplyr)
 wb_ineq %>% 
   select(Year, gini) 
@@ -100,14 +100,14 @@ Explain in your own words what changes each time.
 Follow the worked example below to create and query a database on land prices in the UK using **dplyr** as a front end to an SQLite database. 
 The first stage is to read-in the data:
 
-```{r}
+```{r, eval=FALSE}
 # See help("land_df", package="efficient") for details
 data(land_df, package="efficient")
 ```
 
 The next stage is to create an SQLite database to hold the data:
 
-```{r}
+```{r, eval=FALSE}
 # install.packages("RSQLite") # Requires RSQLite package
 my_db = src_sqlite("land.sqlite3", create = TRUE)
 land_sqlite = copy_to(my_db, land_df, indexes = list("postcode", "price")) 
@@ -119,14 +119,14 @@ Why did we use the `indexes` argument?
 
 From the above code we can see that we have created a `tbl`. This can be accessed using **dplyr** in the same way as any data frame can. Now we can query the data. You can use SQL code to query the database directly or use standard **dplyr** verbs on the table.
 
-```{r}
+```{r, eval=FALSE}
 # Method 1: using sql
 tbl(my_db, sql('SELECT "price", "postcode", "old/new"  FROM land_df'))
 ```
 
 How would you erform the same query using `select()`? Try it to see if you get the same result (hint: use backticks for the `old/new` variable name).
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 # Method 2: using dplyr
 select(land_sqlite, price, postcode, `old/new`)
 ```

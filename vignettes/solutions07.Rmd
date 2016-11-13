@@ -167,7 +167,7 @@ cppFunction('
 double test1() {
   double a = 1.0 / 81;
   double b = 0;
-  for (int i = 0; i < 729; ++ i)
+  for (int i = 0; i < 729; i++)
     b = b + a;
   return b;
 }'
@@ -177,7 +177,7 @@ cppFunction('
 double test2() {
   float a = 1.0 / 81;
   float b = 0;
-  for (int i = 0; i < 729; ++ i)
+  for (int i = 0; i < 729; i++)
     b = b + a;
   return b;
 }'
@@ -194,7 +194,7 @@ Consider the following piece of code
 double test1() {
   double a = 1.0 / 81;
   double b = 0;
-  for (int i = 0; i < 729; ++ i)
+  for (int i = 0; i < 729; i++)
     b = b + a;
   return b;
 }
@@ -224,7 +224,7 @@ double test1() {
   
 4. Change `b = b + a` to `b += a` to make your code more C++ like. 
     ```{Rcpp eval=FALSE, tidy=FALSE}
-    for (int i = 0; i < 729; ++ i)
+    for (int i = 0; i < 729; i++)
       b = b + a;
     ```
 5. (Hard) What's the difference between `i++` and `++i`?

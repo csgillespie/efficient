@@ -8,7 +8,7 @@ output: rmarkdown::html_vignette
 ### Solution vignettes
 
   * Chapter 1
-  * Chapter 2
+  * ~~Chapter 2~~: Completed.
   * Chapter 3
   * Chapter 4
   * Chapter 5

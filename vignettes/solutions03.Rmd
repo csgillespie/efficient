@@ -45,7 +45,8 @@ microbenchmark(add_vec(x), add_for(x))
 1. Time the two methods for calculating the log sum. 
 1. What happens when the `length(x) = 0`, i.e. we have an empty vector?
 
-    ```{r}
+    ```{r, eval=FALSE}
+    ## Raises an error
     x = c()
     log(x[0])
     ```
@@ -60,6 +61,17 @@ the number of darts, i.e. the size of `N`, that is used
 
 The `stop()` function has an argument `call.` that indicates if the function call
 should be part of the error message. Create a function and experiment with this option.
+
+```{r}
+f = function(call = FALSE)
+    stop("An error has occured", call. = call)
+
+#R> f(TRUE)
+# Error in f(TRUE) : An error has occured
+#R> f(FALSE)
+# Error: An error has occured
+```
+
 
 
 #### Exercise {-}

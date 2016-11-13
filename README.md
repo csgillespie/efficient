@@ -3,8 +3,8 @@
 Becoming an efficient R programmer
 ==================================
 
-[![Build Status](https://travis-ci.org/csgillespie/efficient_pkg.png?branch=master)](https://travis-ci.org/csgillespie/efficient_pkg)
+[![Build Status](https://travis-ci.org/csgillespie/efficient.png?branch=master)](https://travis-ci.org/csgillespie/efficient)
 
 ![alt text](front_scale.png)
 
-The associated R package for the forthcoming O'Reilly book: [Efficient R programming](https://csgillespie.github.io/efficientR/). Pull requests and general comments are welcome.
+The associated R package for the forthcoming O'Reilly book: [Efficient R programming](https://csgillespie.github.io/efficientR/) by Colin Gillespie and Robin Lovelace. Pull requests and general comments are welcome.

@@ -7,13 +7,13 @@ output: rmarkdown::html_vignette
 
 ### Solution vignettes
 
-  * Chapter 1
+  * ~~Chapter 1~~: Completed.
   * ~~Chapter 2~~: Completed.
-  * Chapter 3
-  * Chapter 4
-  * Chapter 5
-  * Chapter 6
+  * Chapter 3: CSG
+  * Chapter 4: RL
+  * Chapter 5: RL
+  * Chapter 6: RL
   * ~~Chapter 7~~: Completed.
   * ~~Chapter 8~~: Completed.
-  * Chapter 9
+  * Chapter 9: RL (but I'm not sure we need solutions).
   * ~~Chapter 10~~: No solutions needed.

@@ -12,17 +12,43 @@ vignette: >
 %\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Chapter 3 solutions}
 -->
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE, 
+  fig.align="center",
+  fig.pos="t"
+)
+library(microbenchmark)
+```
 
 #### Exercise {-}
 
 Use the **microbenchmark** package to compare the vectorised construct `x = x + 1`, to the
 `for` loop version. Try varying the size of the input vector.
 
+```{r}
+add_vec = function(x) x + 1
+add_for = function(x) {
+  for(i in seq_along(x))
+    x[i] = x[i] + 1
+  x
+}
+x = rnorm(10000)
+microbenchmark(add_vec(x), add_for(x))
+```
+
+
 #### Exercises {-}
 
 1. Time the two methods for calculating the log sum. 
 1. What happens when the `length(x) = 0`, i.e. we have an empty vector?
 
+    ```{r}
+    x = c()
+    log(x[0])
+    ```
 
 ### Exercise {-}
 

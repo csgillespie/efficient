@@ -13,7 +13,7 @@ output: rmarkdown::html_vignette
   * Chapter 4
   * Chapter 5
   * Chapter 6
-  * Chapter 7
+  * ~~Chapter 7~~: Completed.
   * ~~Chapter 8~~: Completed.
   * Chapter 9
   * ~~Chapter 10~~: No solutions needed.

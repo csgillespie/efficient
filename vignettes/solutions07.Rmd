@@ -14,6 +14,17 @@ vignette: >
 %\VignetteIndexEntry{Chapter 2 solutions}
 -->
 
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE, 
+  fig.align="center",
+  fig.pos="t"
+)
+library(microbenchmark)
+```
+
 ## Chapter 7 Solutions
 
 
@@ -24,17 +35,17 @@ vignette: >
 
 1. Create a vector `x`. Benchmark `any(is.na(x))` against `anyNA()`. Do the results vary with the size of the vector.
   
-```{r eval=FALSE}
-library(microbenchmark)
-N = 10000
-x = rnorm(N)
+    ```{r eval=FALSE}
+    library(microbenchmark)
+    N = 10000
+    x = rnorm(N)
 
-## No NAs - results are similar
-microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
+    ## No NAs - results are similar
+    microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
 
-## Some NAs - big difference
-x[sample(1:N, N/10)] = NA
-microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
+    ## Some NAs - big difference
+    x[sample(1:N, N/10)] = NA
+    microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
 ```
   
 
@@ -150,7 +161,30 @@ profvis({
 }, interval = 0.005)
 ```
 
+```{r echo=FALSE}
+library(Rcpp)
+cppFunction('
+double test1() {
+  double a = 1.0 / 81;
+  double b = 0;
+  for (int i = 0; i < 729; ++ i)
+    b = b + a;
+  return b;
+}'
+)
 
+cppFunction('
+double test2() {
+  float a = 1.0 / 81;
+  float b = 0;
+  for (int i = 0; i < 729; ++ i)
+    b = b + a;
+  return b;
+}'
+)
+
+
+```
 
 #### Exercises {-}
 
@@ -167,15 +201,88 @@ double test1() {
 ```
 
 1. Save the function `test1()` in a separate file. Make sure it works.
+    ```{r}
+    test1()
+    ```
 2. Write a similar function in R and compare the speed of the C++ and R versions.
-3. Create a function called `test2()` where the `double` variables have been replaced by `float`. Do you still get the correct answer?
+
+    ```{r}
+    test1_r = function() {
+      a = 1/81
+      b = 0
+      for(i in 0:728) 
+        b = b + a
+      return(b)
+    }
+    test1_r() - test1()
+    ```
+  3. Create a function called `test2()` where the `double` variables have been replaced by `float`. Do you still get the correct answer?
+    ```{r}
+    ## No!  
+    test1_r() - test2()
+    ```
+  
 4. Change `b = b + a` to `b += a` to make your code more C++ like. 
+    ```{Rcpp eval=FALSE, tidy=FALSE}
+    for (int i = 0; i < 729; ++ i)
+      b = b + a;
+    ```
 5. (Hard) What's the difference between `i++` and `++i`?
 
+    * See this [Stackoverflow](https://stackoverflow.com/questions/24853/what-is-the-difference-between-i-and-i)
+  answer for a good overview
 
 #### Exercises {-}
 
 1. Construct an R version (using a `for` loop rather than the vectorised solution),
 `res_r()` and compare the three function variants. 
+```{r, echo=FALSE}
+sq_diff_r = function(x, y) (x - y)^2
+cppFunction('
+NumericVector res_c(NumericVector x, NumericVector y) {
+  int i;
+  int n = x.size();
+  NumericVector residuals(n);
+  for(i=0; i < n; i++) {
+    residuals[i] = pow(x[i] - y[i], 2);
+  }
+  return residuals;
+}
+')
+cppFunction('
+NumericVector res_sugar(NumericVector x, NumericVector y) {
+  return pow(x-y, 2);
+}
+')
+```
+
+    ```{r, eval=FALSE}
+    x = rnorm(1000000)
+    y = rnorm(1000000)
+    microbenchmark(sq_diff_r(x, y), res_c(x, y), res_sugar(x, y), times=1000)
+    ```
+
 1. In the above example, `res_sugar()` is faster than `res_c()`. Do you know why?
+
+    * The `res_sugar()` is clever particularly clever and avoids creating a vector.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

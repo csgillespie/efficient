@@ -1,6 +1,6 @@
 ---
 title: "Answers to exercises in Efficient R Programming"
-author: "Colin Gillespie and Robin Lovelace"
+author: "Colin Gillespie"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chapter 3 solutions}
@@ -35,7 +35,11 @@ add_for = function(x) {
     x[i] = x[i] + 1
   x
 }
+## Notice the max values!
 x = rnorm(10000)
+microbenchmark(add_vec(x), add_for(x))
+
+x = rnorm(10)
 microbenchmark(add_vec(x), add_for(x))
 ```
 
@@ -43,6 +47,19 @@ microbenchmark(add_vec(x), add_for(x))
 #### Exercises {-}
 
 1. Time the two methods for calculating the log sum. 
+    ```{r}
+    log_sum_for = function(x) {
+      log_sum = 0
+      for(i in 1:length(x))
+        log_sum = log_sum + log(x[i])
+      log_sum
+    }
+    log_sum_vec = function (x) {
+      sum(log(x))
+    }
+    x = runif(1000) + 1
+    microbenchmark(log_sum_for(x), log_sum_vec(x))
+    ```
 1. What happens when the `length(x) = 0`, i.e. we have an empty vector?
 
     ```{r, eval=FALSE}
@@ -56,6 +73,35 @@ microbenchmark(add_vec(x), add_for(x))
 Verify that `monte_carlo_vec()` is faster than `monte_carlo()`. How does this relate to 
 the number of darts, i.e. the size of `N`, that is used
 
+```{r, eval=FALSE}
+monte_carlo = function(N) {
+  hits = 0
+  for (i in seq_len(N)) {
+    u1 = runif(1)
+    u2 = runif(1)
+    if (u1 ^ 2 > u2)
+      hits = hits + 1
+  }
+  return(hits / N)
+}
+
+monte_carlo_vec = function(N) sum(runif(N)^2 > runif(N))/N
+
+n_s = seq(2, 4, length.out=6)
+m = matrix(0, ncol=2, nrow = length(n_s))
+for(i in seq_along(n_s)) {
+  N = 10^(n_s[i])
+  z = microbenchmark(monte_carlo(N), monte_carlo_vec(N), unit = "ms")
+  z$time = z$time/10^9
+  m[i,] = tapply(z$time, z$expr, mean)
+}
+  
+plot(10^n_s, m[,1]/m[,2], log="x", type="l")
+```
+
+```{r echo=FALSE, out.width="60%"}
+knitr::include_graphics("graphics/sol3_monte_carlo.png")
+```
 
 ### Exercises {-}
 
@@ -72,15 +118,13 @@ f = function(call = FALSE)
 # Error: An error has occured
 ```
 
-
-
 #### Exercise {-}
 
 Factors are slightly more space efficient than characters. Create a character vector
 and corresponding factor and use `pryr::object_size()` to calculate the space needed for
 each object.
 
-```{r echo=FALSE, eval=FALSE}
+```{r}
 ch = sample(month.name, 1e6, replace = TRUE)
 fac = factor(ch, levels = month.name)
 pryr::object_size(ch)
@@ -90,9 +134,20 @@ pryr::object_size(fac)
 #### Exercises {-}
 
 1. Rewrite the `sapply()` function calls above using `vapply()` to ensure type consistency.
+    ```{r, results="hide"}
+two_cols = data.frame(x = 1:5, y = letters[1:5])
+zero_cols = data.frame()
+vapply(two_cols, class, FUN.VALUE = "character") # a list
+vapply(zero_cols, class, FUN.VALUE = "character") # a list
+```
+
 
 1. How would you make subsetting data frames with `[` type consistent? Hint: look at
 the `drop` argument.
+    ```{r, results="hide"}
+    two_cols[, 1:2, drop=FALSE]          # a data.frame
+    two_cols[, 1, drop=FALSE]          
+    ```
 
 #### Exercise {-}
 

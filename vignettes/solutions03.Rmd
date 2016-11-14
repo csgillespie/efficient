@@ -154,9 +154,83 @@ the `drop` argument.
 Construct a box plot of timings for the standard plotting function and the memoised
 version. 
 
+
+```{r, echo=FALSE, out.width="60%"}
+knitr::include_graphics("graphics/sol3_memoise.png")
+```
+
+
 #### Exercise {-}
 
 1. Write a stop-watch function __without__ using function closures.
+
+    This is quite hard. The solution below uses __reference classes__. These are 
+    objects that are a combination of S4 objects and functions closures.
+    ```{r, results="hide"}
+    stop_watch = setRefClass("stop_watch", fields=list(start_time="POSIXt"))
+    stop_watch$methods(
+      list(
+        start = function() {
+          start_time <<- Sys.time()
+        }, 
+        stop = function() {
+          stop_time = Sys.time()
+          difftime(stop_time, start_time)
+        }
+      )
+    )
+
+    watch = stop_watch$new()
+    watch$start()
+    watch$stop()
+    ```
 1. Many stop-watches have the ability to measure not only your overall time but also you
 individual laps. Add a `lap()` function to the `stop_watch()` function that will record
 individual times, while still keeping track of the overall time.
+
+    ```{r, results="hide"}
+    stop_watch = function() {
+      start_time = NULL
+      lap_time = NULL
+  
+      start = function() {
+        start_time <<- Sys.time()
+        lap_time <<- start_time
+      }
+      stop = function() {
+        stop_time = Sys.time()
+        difftime(stop_time, start_time)
+      }
+      lap = function() {
+        old_lap = lap_time
+        lap_time <<- Sys.time()
+        difftime(lap_time, old_lap)
+      }
+      list(start = start, stop = stop, lap = lap)
+    }
+    watch = stop_watch()
+    watch$start()
+    watch$lap()
+    watch$stop()
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

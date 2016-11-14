@@ -9,7 +9,7 @@ output: rmarkdown::html_vignette
 
   * ~~Chapter 1~~: Completed.
   * ~~Chapter 2~~: Completed.
-  * Chapter 3: CSG
+  * ~~Chapter 3~~: Completed.
   * Chapter 4: RL
   * Chapter 5: RL
   * Chapter 6: RL

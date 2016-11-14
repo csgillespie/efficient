@@ -1,6 +1,6 @@
 ---
 title: "Answers to exercises in Efficient Performance"
-author: "Colin Gillespie and Robin Lovelace"
+author: "Colin Gillespie"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -14,6 +14,17 @@ vignette: >
 %\VignetteIndexEntry{Chapter 2 solutions}
 -->
 
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE, 
+  fig.align="center",
+  fig.pos="t"
+)
+library(microbenchmark)
+```
+
 ## Chapter 7 Solutions
 
 
@@ -22,65 +33,55 @@ vignette: >
 
 #### Exercises {-}
 
-  1. Create a vector `x`. Benchmark `any(is.na(x))` against `anyNA()`. Do the results vary with the size of the vector.
+1. Create a vector `x`. Benchmark `any(is.na(x))` against `anyNA()`. Do the results vary with the size of the vector.
+  
+    ```{r eval=FALSE}
+    library(microbenchmark)
+    N = 10000
+    x = rnorm(N)
 
-  1. Examine the following function definitions to give you an idea of how integers are used.
-    * `tail.matrix()`
+    ## No NAs - results are similar
+    microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
+
+    ## Some NAs - big difference
+    x[sample(1:N, N/10)] = NA
+    microbenchmark(any(is.na(x)), anyNA(x), times = 1000)
+```
+  
+
+1. Examine the following function definitions to give you an idea of how integers are used.
+  * `tail.matrix()`
+    ```{r}
+    ## Default value of n is an integer
+    args(tail.matrix)
+    ```
     * `lm()`. 
+    ```{r}
+    # getFunction("lm")
+    # Function uses integer in the match calls
+    # mf <- mf[c(1L, m)]
+    ```
 
-  1. Construct a matrix of integers and a matrix of numerics. Using `pryr::object_size()`, compare the 
+1. Construct a matrix of integers and a matrix of numerics. Using `pryr::object_size()`, compare the 
   objects.
   
-  1. How does the function `seq.int()`, which was used in the `tail.matrix()` function, 
+    ```{r}
+    m_int = matrix(sample(1:10000), ncol=10)
+    m_num = as.numeric(m_int)
+
+    ## Approximately 2
+    pryr::object_size(m_num)/pryr::object_size(m_int)
+    ```
+  
+  
+1. How does the function `seq.int()`, which was used in the `tail.matrix()` function, 
   differ to the standard `seq()` function?
 
-```{block, type="rmdnote"}
-A related memory saving idea is to replace `logical` vectors
-with vectors from the **bit** package which take up just over 16th of the space
-(but you can't use `NA`s).
-```
-
-
-#### Comparing which.max and which
-```{r, eval=FALSE}
-data<-matrix(NA,nrow=10,ncol=2)
-
-ns<- 10^(seq(from=log10(10),to=log10(10^6),length.out =nrow(data)))
-
-n.rep<-3 #Number of times to generate a test sample. This smooths the chart.
-
-for (i in seq_len(nrow(data)))
-{
-  tmp<-matrix(NA,nrow=n.rep,ncol=2)
-  for(j in 1:n.rep)
-  {
-    s<-sample(c(TRUE,FALSE),ns[i],TRUE,prob=c(1-0.0001,0.0001))
-    tmp[j,]<-summary(microbenchmark::microbenchmark(
-      which.max(s),
-      which(s)[[1]]))[['median']]
-  }
-  data[i,1]<-mean(tmp[,1])
-  data[i,2]<-mean(tmp[,2])
-  cat(paste0('.'))
-}
-
-data<-cbind(ns,data)
-
-data<-as.data.frame(data)
-names(data)<-c('N','which.max','which')
-
-library(ggplot2)
-library(scales)
-colors <- c("which"="blue","which.max"="grey")
-ggplot(data,aes(x=N)) +
-  geom_line(aes(y=which.max, color='which.max')) +
-  geom_line(aes(y=which,color='which')) +
-  scale_x_continuous(trans=log10_trans()) +
-  scale_linetype_manual(values='colors',name='Function') +
-  scale_y_continuous(trans=log10_trans()) +
-  ylab("Execution time") + xlab("Vector size")
-```
-
+    ```{r}
+    # seq is is an S3 generic, i.e. it looks at the class
+    #of the first argument, then calls another function
+    getFunction("seq")
+    ```
 
 ### Profvis Monopoly
 
@@ -160,7 +161,30 @@ profvis({
 }, interval = 0.005)
 ```
 
+```{r echo=FALSE}
+library(Rcpp)
+cppFunction('
+double test1() {
+  double a = 1.0 / 81;
+  double b = 0;
+  for (int i = 0; i < 729; i++)
+    b = b + a;
+  return b;
+}'
+)
 
+cppFunction('
+double test2() {
+  float a = 1.0 / 81;
+  float b = 0;
+  for (int i = 0; i < 729; i++)
+    b = b + a;
+  return b;
+}'
+)
+
+
+```
 
 #### Exercises {-}
 
@@ -170,22 +194,95 @@ Consider the following piece of code
 double test1() {
   double a = 1.0 / 81;
   double b = 0;
-  for (int i = 0; i < 729; ++ i)
+  for (int i = 0; i < 729; i++)
     b = b + a;
   return b;
 }
 ```
 
 1. Save the function `test1()` in a separate file. Make sure it works.
+    ```{r}
+    test1()
+    ```
 2. Write a similar function in R and compare the speed of the C++ and R versions.
-3. Create a function called `test2()` where the `double` variables have been replaced by `float`. Do you still get the correct answer?
+
+    ```{r}
+    test1_r = function() {
+      a = 1/81
+      b = 0
+      for(i in 0:728) 
+        b = b + a
+      return(b)
+    }
+    test1_r() - test1()
+    ```
+  3. Create a function called `test2()` where the `double` variables have been replaced by `float`. Do you still get the correct answer?
+    ```{r}
+    ## No!  
+    test1_r() - test2()
+    ```
+  
 4. Change `b = b + a` to `b += a` to make your code more C++ like. 
+    ```{Rcpp eval=FALSE, tidy=FALSE}
+    for (int i = 0; i < 729; i++)
+      b = b + a;
+    ```
 5. (Hard) What's the difference between `i++` and `++i`?
 
+    * See this [Stackoverflow](https://stackoverflow.com/questions/24853/what-is-the-difference-between-i-and-i)
+  answer for a good overview
 
 #### Exercises {-}
 
 1. Construct an R version (using a `for` loop rather than the vectorised solution),
 `res_r()` and compare the three function variants. 
+```{r, echo=FALSE}
+sq_diff_r = function(x, y) (x - y)^2
+cppFunction('
+NumericVector res_c(NumericVector x, NumericVector y) {
+  int i;
+  int n = x.size();
+  NumericVector residuals(n);
+  for(i=0; i < n; i++) {
+    residuals[i] = pow(x[i] - y[i], 2);
+  }
+  return residuals;
+}
+')
+cppFunction('
+NumericVector res_sugar(NumericVector x, NumericVector y) {
+  return pow(x-y, 2);
+}
+')
+```
+
+    ```{r, eval=FALSE}
+    x = rnorm(1000000)
+    y = rnorm(1000000)
+    microbenchmark(sq_diff_r(x, y), res_c(x, y), res_sugar(x, y), times=1000)
+    ```
+
 1. In the above example, `res_sugar()` is faster than `res_c()`. Do you know why?
+
+    * The `res_sugar()` is clever particularly clever and avoids creating a vector.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

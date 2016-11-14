@@ -1,8 +1,7 @@
 Package: efficient
 Type: Package
 Title: Becoming an Efficient R Programmer
-Version: 0.1.1
-Date: 2016-04-26
+Version: 0.1.2
 Authors@R: c(person("Colin", "Gillespie", email="csgillespie@gmail.com", role = c("aut", "cre")), 
              person("Robin", "Lovelace", email="rob00x@gmail.com", role = c("aut")))
 Description: Data sets, functions and vignettes for the R for Big data course.
@@ -15,6 +14,6 @@ Imports:
 LazyData: TRUE
 Suggests:
     knitr,
-    rmarkdown, benchmarkme, microbenchmark, ggplot2, dplyr, stringr, scales, ggmap
+    rmarkdown, benchmarkme, microbenchmark, ggplot2, dplyr, stringr, scales, ggmap, pryr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

@@ -17,3 +17,4 @@ output: rmarkdown::html_vignette
   * ~~Chapter 8~~: Completed.
   * Chapter 9: RL (but I'm not sure we need solutions).
   * ~~Chapter 10~~: No solutions needed.
+  * `merge.Rmd`: Robin, should this be deleted?

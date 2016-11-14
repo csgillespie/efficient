@@ -4,11 +4,12 @@ Title: Becoming an Efficient R Programmer
 Version: 0.1.2
 Authors@R: c(person("Colin", "Gillespie", email="csgillespie@gmail.com", role = c("aut", "cre")), 
              person("Robin", "Lovelace", email="rob00x@gmail.com", role = c("aut")))
-Description: Data sets, functions and vignettes for the R for Big data course.
+Description: Data sets, functions and vignettes for the Efficient R programming 
+  book. Published by O'Reilly, 2017.
 Maintainer: <csgillespie@gmail.com>
 License: GPL-3 | GPL-2
 Depends:
-    R (>= 3.1)
+    R (>= 3.2)
 Imports:
     Rcpp, stats
 LazyData: TRUE

@@ -8,11 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Chapter 8 solutions}
--->
-
 ### Exercises {-}
 
 The following two exercises aim to help you determine if it is worthwhile upgrading your RAM.

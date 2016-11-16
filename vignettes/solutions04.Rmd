@@ -8,10 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Chapter 4 solutions}
--->
 #### Exercises {-}
 
 1. What are the three most important work 'chunks' of your current R project?

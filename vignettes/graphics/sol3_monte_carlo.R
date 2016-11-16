@@ -20,7 +20,8 @@ for(i in seq_along(n_s)) {
   m[i,] = tapply(z$time, z$expr, mean)
 }
 
-png("vignettes/graphics/sol3_monte_carlo.png", width=6, height=4)
+dpi = 300
+png("vignettes/graphics/sol3_monte_carlo.png", width=6*dpi, height=4*dpi, res = dpi)
 par(mar=c(3,3,2,1), mgp=c(2,0.4,0), tck=-.01,
     cex.axis=0.9, las=1, xaxs='i',yaxs='i')
 
@@ -40,3 +41,4 @@ title("Monte-Carlo: vectorised vs standard", adj=1,
       cex.main=0.9, font.main=2, col.main="black")
 
 dev.off()
+

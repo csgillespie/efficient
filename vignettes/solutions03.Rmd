@@ -180,6 +180,7 @@ knitr::include_graphics("graphics/sol3_memoise.png")
     watch$start()
     watch$stop()
     ```
+    
 1. Many stop-watches have the ability to measure not only your overall time but also you
 individual laps. Add a `lap()` function to the `stop_watch()` function that will record
 individual times, while still keeping track of the overall time.
@@ -209,24 +210,3 @@ individual times, while still keeping track of the overall time.
     watch$lap()
     watch$stop()
     ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

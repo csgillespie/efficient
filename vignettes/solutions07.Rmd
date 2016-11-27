@@ -256,24 +256,3 @@ NumericVector res_sugar(NumericVector x, NumericVector y) {
 1. In the above example, `res_sugar()` is faster than `res_c()`. Do you know why?
 
     * The `res_sugar()` is clever particularly clever and avoids creating a vector.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

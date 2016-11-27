@@ -11,9 +11,11 @@ vignette: >
 #### Exercise {-}
 
 Create the following data frame
+
 ```{r, eval=FALSE}
 df_base = data.frame(colA = "A")
 ```
+
 Try and guess the output of the following commands
 
 ```{r results="hide", eval=FALSE}
@@ -22,22 +24,68 @@ df_base$colA
 df_base$col
 df_base$colB
 ```
+
 Now create a tibble data frame and repeat the above commands.
+
+    ```{r, eval=FALSE}
+    library(tibble)
+    df_tibble = tibble::tibble(colA = "A")
+    ```
+    
+    The tibble does not guess the column names:
+    
+    ```{r results="hide", eval=FALSE}
+    print(df_tibble)
+    df_tibble$colA
+    df_tibble$col
+    df_tibble$colB
+    ```
 
 #### Exercises {-}
 
 1. What are the three criteria of tidy data?
 
+    Each variable forms a column
+    
+    Each observation forms a row
+    
+    Each unit of analysis (e.g. person, household) forms a single table
+    
+    These answers can be found in the **tidyr** vignette:
+
+    ```{r, eval=FALSE}
+    vignette(package = "tidyr")
+    vignette("tidy-data")
+    ```
+
 2. Load and look at subsets of these datasets. The first is the `pew` datasets we've been using already. The second reports the points that define, roughly, the geographical boundaries of different London boroughs. What is 'untidy' about each?
 
-```{r, warning=FALSE, eval=FALSE}
-data(pew, package="efficient")
+```{r, warning=FALSE}
+data(pew, package = "efficient")
 head(pew, 10)
-data(lnd_geo_df, package="efficient")
+data(lnd_geo_df, package = "efficient")
 head(lnd_geo_df, 10)
 ```
 
+    In the `pew` dataset, not every column is a variable: the single variable of income band is represented by many columns.
+
 3. Convert each of the above datasets into tidy form.
+
+    As illustrated previously, `gather()` converts wide data into long, tidy forms:
+    
+    
+    ```{r}
+    library("tidyr")
+    gather(pew, Income, count, -religion)
+    ```
+
+    In the `lnd_geo_df` dataset, not every column is a distinct variable: `name_date` contains two variables (the name of the zone and the date). This can be fixed as follows:
+    
+    ```{r}
+    tidy_geo = separate(lnd_geo_df, name_date,
+                          into = c("name", "date"), sep = -5)
+    unique(tidy_geo[1:2])[1:3,]
+    ```
 
 4. Consider the following string of phone numbers and fruits from [@wickham2010stringr]:
 
@@ -52,38 +100,66 @@ Write functions in **stringr** and base R that return:
 - A logical vector reporting whether or not each string contains a number.
 - Complete words only, without extraneous non-letter characters.
 
-```{r, eval=FALSE}
-library(stringr)
-str_detect(string = strings, pattern = "[0-9]")
-str_extract(strings, pattern = "[A-z]+")
-```
-
-#### Exercises {-}
+    ```{r, eval=FALSE}
+    library(stringr)
+    str_detect(string = strings, pattern = "[0-9]")
+    str_extract(strings, pattern = "[A-z]+")
+    ```
 
 1. Try running each of the chaining examples above line-by-line, so the first two entries for the first example would look like this:
 
-```{r, eval=FALSE}
+```{r}
+library("dplyr")
 data("wb_ineq", package="efficient")
-wb_ineq
 ```
 
 followed by:
 
 ```{r, eval=FALSE}
-library(dplyr)
 wb_ineq %>% 
   select(Year, gini) 
 ```
 
 Explain in your own words what changes each time.
 
+    ```{r}
+    wb_ineq %>% 
+      select(Year, gini) %>% # select only named columns
+      mutate(decade = floor(Year / 10) * 10) %>% # create decade column
+      group_by(decade) %>% # group the dataset
+      summarise(mean(gini, na.rm = TRUE)) # find the mean gini index per year
+    ```
+
 2. Use chained **dplyr** functions to answer the following question: In which year did countries without and 'a' in their name have the lowest level of inequality?
 
+    1981, as illustrated below:
+
+    ```{r}
+    wb_ineq %>% 
+      filter(!grepl("a", Country)) %>%
+      filter(!is.na(gini)) %>% 
+      group_by(Year) %>% 
+      summarise(mean_gini = min(mean(gini), na.rm = TRUE)) %>% 
+      top_n(-1, mean_gini)
+    ```
+
+    Note: the question is open to interpretation. In the above answer, 'lowest level of inequality' is interpreted as 'mean gini index for all countries without a in their name per year'.
 
 #### Exercises {-}
 
 1. Refer back to the greenhouse gas emissions example at the outset of section \@ref(dplyr), in which we found the top 3 countries in terms of emissions growth in the transport sector. a) Explain in words what is going on in each line. b) Try to find the top 3 countries in terms of emissions in 2012 - how is the list different?
 
+    Russia is now present on the list - it has high absolute transport emissions, but relatively low levels of emissions growth.
+
+    ```{r, message=FALSE}
+    library("dplyr")
+    data("ghg_ems", package = "efficient")
+    ghg_ems %>%
+      filter(!grepl("World|Europe", Country)) %>% 
+      filter(Year == 2012) %>% 
+      top_n(3, Transportation) %>%
+      arrange(desc(Transportation))
+    ```
 
 2. Explore **dplyr**'s documentation, starting with the introductory vignette, accessed by entering [`vignette("introduction")`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html).
 
@@ -109,7 +185,16 @@ land_sqlite = copy_to(my_db, land_df, indexes = list("postcode", "price"))
 
 What class is the new object `land_sqlite`?
 
+    It's a table with additional attributes to show it's also an SQLite database.
+
+    ```{r, eval=FALSE}
+    class(land_sqlite)
+    ```
+
+
 Why did we use the `indexes` argument?
+
+    For fast sorting on these variables.
 
 From the above code we can see that we have created a `tbl`. This can be accessed using **dplyr** in the same way as any data frame can. Now we can query the data. You can use SQL code to query the database directly or use standard **dplyr** verbs on the table.
 
@@ -120,8 +205,8 @@ tbl(my_db, sql('SELECT "price", "postcode", "old/new"  FROM land_df'))
 
 How would you erform the same query using `select()`? Try it to see if you get the same result (hint: use backticks for the `old/new` variable name).
 
-```{r, echo=FALSE, eval=FALSE}
-# Method 2: using dplyr
-select(land_sqlite, price, postcode, `old/new`)
-```
+    ```{r, eval=FALSE}
+    # Method 2: using dplyr
+    select(land_sqlite, price, postcode, `old/new`)
+    ```
 

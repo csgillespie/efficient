@@ -52,7 +52,8 @@ cumsum(x)
 
 2. Run the same benchmark, but with the results reported in seconds, on a vector of all the whole numbers from 1 to 50,000. Hint: also use the argument `neval = 1` so that each command is only run once to ensure the results complete (even with a single evaluation the benchmark may take up to or more than a minute to complete, depending on your system). Does the *relative* time difference increase or decrease? By how much?
 
-    ```{r}
+    ```{r, eval=FALSE}
+    library("microbenchmark")
     x = 1:5e4 # initiate vector to cumulatively sum
     microbenchmark(cs_for(x), cs_apply(x), cumsum(x), times = 1, unit = "s")
     #> Unit: seconds

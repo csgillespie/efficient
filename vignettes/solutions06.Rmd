@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient R Programming"
+title: "Answers to exercises in Efficient R Programming: Chapter 6"
 author: "Colin Gillespie and Robin Lovelace"
 output: rmarkdown::html_vignette
 vignette: >

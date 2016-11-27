@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient Performance"
+title: "Answers to exercises in Efficient Performance: Chapter 7"
 author: "Colin Gillespie"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

@@ -12,8 +12,16 @@ vignette: >
 
 1. What are the three most important work 'chunks' of your current R project?
 
+    This exercise is an open question designed to make you think about how your projects can be divided into distinct sections. Typical chunks include data cleaning, modelling, visualisation and write-up. Different skill-sets, staff or even teams can be allocated to each, mirroring the division in web developers between 'front-end' and 'back-end' work. Note that in specifying such a division of labour there is not an attempt to imply value judgements about the relative importance of each chunk.
+
 1. What is the meaning of 'SMART' objectives (see [Making your workflow SMART](#smart)).
+
+    SMART in this context refers to objectives that are Specific, Measurable, Acheivable (or Assigned), Realistic and Time-bound.
 
 1. Run the [code chunk](#DiagrammeR) at the end of this section to see the output.
 
+    The output should be the same as presented in the book.
+
 1. Bonus exercise: modify this code to create a basic Gantt chart of an R project you are working on.
+
+    The results depend on your project.

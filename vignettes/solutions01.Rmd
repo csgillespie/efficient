@@ -62,7 +62,7 @@ cumsum(x)
     #>    cumsum(x)  0.000144897  0.000144897  0.000144897  0.000144897
     ```
     
-    The relative times increase (by an order of magnitude)
+    The relative times increase, by an three orders of magnitude between the fastest and slowest method. When `x = 1:100`, `cumsum(x)` is around 250 times faster than `cs_for(x)`. In the above results, the relative difference is around $17 / 0.0001$.
 
 3. Test how long the different methods for subsetting the data frame `df`, presented Chapter 1, take on your computer. Is it faster or slower at subsetting than the computer on which this book was compiled?
 

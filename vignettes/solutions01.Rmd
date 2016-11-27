@@ -105,7 +105,7 @@ cumsum(x)
 
     ```
     
-    
+    Note that unlike with the `cumsum(x)` example, the relative times of the different methods does not change here: they are simply replicated many times.
 
 5. Bonus exercise: try profiling a section of code you have written using **profvis**. Where are the bottlenecks? Were they where you expected?
 

@@ -52,15 +52,16 @@ cumsum(x)
 
 2. Run the same benchmark, but with the results reported in seconds, on a vector of all the whole numbers from 1 to 50,000. Hint: also use the argument `neval = 1` so that each command is only run once to ensure the results complete (even with a single evaluation the benchmark may take up to or more than a minute to complete, depending on your system). Does the *relative* time difference increase or decrease? By how much?
 
-    ```{r, eval=FALSE}
+    ```{r}
     x = 1:5e4 # initiate vector to cumulatively sum
     microbenchmark(cs_for(x), cs_apply(x), cumsum(x), times = 1, unit = "s")
-    #R> Unit: seconds
-    #R>     expr       min        lq      mean    median        uq       max neval
-    #R> cs_for(x) 1.069e+01 1.069e+01 1.069e+01 1.069e+01 1.069e+01 1.069e+01     1
-    #R> cs_apply(x) 1.812e+00 1.812e+00 1.812e+00 1.812e+00 1.812e+00 1.812e+00     1
-    #R> cumsum(x) 1.421e-04 1.421e-04 1.421e-04 1.421e-04 1.421e-04 1.421e-04     1
+    #> Unit: seconds
+    #>         expr          min           lq         mean       median
+    #>    cs_for(x) 16.753493973 16.753493973 16.753493973 16.753493973
+    #>  cs_apply(x)  4.680862044  4.680862044  4.680862044  4.680862044
+    #>    cumsum(x)  0.000144897  0.000144897  0.000144897  0.000144897
     ```
+    
     The relative times increase (by an order of magnitude)
 
 3. Test how long the different methods for subsetting the data frame `df`, presented Chapter 1, take on your computer. Is it faster or slower at subsetting than the computer on which this book was compiled?
@@ -103,6 +104,8 @@ cumsum(x)
     )
 
     ```
+    
+    
 
 5. Bonus exercise: try profiling a section of code you have written using **profvis**. Where are the bottlenecks? Were they where you expected?
 

@@ -63,9 +63,22 @@ cumsum(x)
     ```
     The relative times increase (by an order of magnitude)
 
-3. Test how long the different methods for subsetting the data frame `df`, presented Chapter 1, take on your computer. Is is faster or slower at subsetting than the computer on which this book was compiled?
+3. Test how long the different methods for subsetting the data frame `df`, presented Chapter 1, take on your computer. Is it faster or slower at subsetting than the computer on which this book was compiled?
 
-    * See chapter 1 for details
+    * See chapter 1 for details: if the median time spent was greater than 19.38, 19.64 and 14.48 microseconds for each respective methods, your computer is slower, as is the case in the benchmark results shown below:
+
+    ```{r, eval=FALSE}
+    library("microbenchmark")
+    df = data.frame(v = 1:4, name = letters[1:4])
+    microbenchmark(df[3, 2], df[3, "name"], df$name[3])
+    
+    #> Unit: microseconds
+    #>           expr    min      lq     mean median      uq     max neval cld
+    #>       df[3, 2] 21.791 22.5320 26.30720 23.256 24.3980 181.617   100   b
+    #>  df[3, "name"] 21.453 22.8750 25.30676 23.275 24.5845  65.978   100   b
+    #>     df$name[3] 15.474 16.5945 19.25959 17.338 18.1585  58.752   100  a
+    ```
+
 
 4. Use `system.time()` and a `for()` loop to test how long it takes to perform the subsetting operation 50,000 times. Before testing this, do you think it will be more or less than 1 second, for each subsetting method? Hint: the test for the first method is shown below:
 

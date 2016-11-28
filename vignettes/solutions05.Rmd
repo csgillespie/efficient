@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient R Programming"
+title: "Answers to exercises in Efficient R Programming: Chapter 5"
 author: "Colin Gillespie and Robin Lovelace"
 output: rmarkdown::html_vignette
 vignette: >
@@ -12,10 +12,66 @@ vignette: >
 
 1. The final line in the code chunk above shows a neat feature of **rio** and some other packages: the output format is determined by the suffix of the file-name, which make for concise code. Try opening the `voc_voyages.xlsx` file with an editor such as LibreOffice Calc or Microsoft Excel to ensure that the export worked, before removing this rather inefficient file format from your system:
 
-    ```{r, results="hide", warning=FALSE}
+    ```{r, eval=FALSE}
     file.remove("voc_voyages.xlsx")
+    ```
+    
+    To verify that the file saved as an Excel file correctly, try opening it, e.g. with LibreOffice, as illustrated below.
+    
+    
+    ```{r}
+    knitr::include_graphics("graphics/xls-screen.png")
     ```
 
 2. Try saving the the `voyages` data frames into 3 other file formats of your choosing (see `vignette("rio")` for supported formats). Try opening these in external programs. Which file formats are more portable?
 
+To see the range of export options supported by **rio**, consult the documentation:
+   
+```{r, eval=FALSE}
+library("rio")
+?export
+```
+    
+Three output options suported by the package are illustrated below:
+    
+```{r, eval=FALSE}
+export(cars, "cars.psv") # relatively unusual but highly portable
+export(cars, "cars.json") # portable web-friendly format
+export(cars, "cars.sav") # can be read-in by SPSS, not portable
+```
+
 3. As a bonus exercise, create a simple benchmark to compare the write times for the different file formats used to complete the previous exercise. Which is fastest? Which is the most space efficient?
+
+    Of the above examples, .sav was the fastest:
+
+    ```{r, eval=FALSE}
+    library(microbenchmark)
+    microbenchmark(times = 10,
+        export(cars, "cars.json"), # portable web-friendly format
+        export(cars, "cars.psv"), # relatively unusual but highly portable
+        export(cars, "cars.sav") # can be read-in by SPSS, not portable
+    )
+    
+    ## Unit: microseconds
+    ##                       expr     min      lq      mean    median       uq
+    ##  export(cars, "cars.json") 847.734 856.760 1046.0637 1004.2230 1257.855
+    ##   export(cars, "cars.psv") 630.689 641.662  693.5819  684.9845  733.419
+    ##   export(cars, "cars.sav") 197.913 218.843  265.2692  232.7065  273.377
+    ```
+    
+    We can use `file.size()` to test the file size of the resulting files:
+    
+    ```{r, eval=FALSE}
+    f_cars = list.files(pattern = "cars")
+    knitr::kable(data.frame(
+      Format = c(".json", ".psv", ".sav"),
+      Size = file.size(f_cars)
+    ))
+    file.remove(f_cars) # remove excess files
+    ```
+    
+    |Format | Size|
+    |:------|----:|
+    |.json  | 1144|
+    |.psv   |  308|
+    |.sav   | 1220|

@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient R Programming"
+title: "Answers to exercises in Efficient R Programming: Chapter 9"
 author: "Colin Gillespie and Robin Lovelace"
 output: rmarkdown::html_vignette
 vignette: >
@@ -11,3 +11,5 @@ vignette: >
 #### Exercises {-}
 
 Look at the difference between your style and RStudio's based on a representative R script that you have written (see Section \@ref(coding-style)). What are the similarities? What are the differences? Are you consistent? Write these down and think about how you can use the results to improve your coding style.
+
+    This is an open-ended question, as is the process of developing a consistent coding style.

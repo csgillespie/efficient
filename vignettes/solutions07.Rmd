@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient Performance"
+title: "Answers to exercises in Efficient Performance: Chapter 7"
 author: "Colin Gillespie"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -256,24 +256,3 @@ NumericVector res_sugar(NumericVector x, NumericVector y) {
 1. In the above example, `res_sugar()` is faster than `res_c()`. Do you know why?
 
     * The `res_sugar()` is clever particularly clever and avoids creating a vector.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

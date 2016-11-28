@@ -1,5 +1,5 @@
 ---
-title: "Answers to exercises in Efficient R Programming"
+title: "Answers to exercises in Efficient R Programming: Chapter 6"
 author: "Colin Gillespie and Robin Lovelace"
 output: rmarkdown::html_vignette
 vignette: >
@@ -11,9 +11,11 @@ vignette: >
 #### Exercise {-}
 
 Create the following data frame
+
 ```{r, eval=FALSE}
 df_base = data.frame(colA = "A")
 ```
+
 Try and guess the output of the following commands
 
 ```{r results="hide", eval=FALSE}
@@ -22,24 +24,94 @@ df_base$colA
 df_base$col
 df_base$colB
 ```
+
 Now create a tibble data frame and repeat the above commands.
+
+```{r, eval=FALSE}
+library("tibble")
+df_tibble = tibble::tibble(colA = "A")
+```
+    
+The tibble does not guess the column names:
+    
+```{r results="hide", eval=FALSE}
+print(df_tibble)
+## # A tibble: 1 × 1
+##    colA
+##   <chr>
+## 1     A
+df_tibble$colA
+## [1] "A"
+df_tibble$col
+## Warning: Unknown column 'col'
+df_tibble$colB
+## Warning: Unknown column 'colB'
+```
 
 #### Exercises {-}
 
 1. What are the three criteria of tidy data?
 
+    Each variable forms a column
+    
+    Each observation forms a row
+    
+    Each unit of analysis (e.g. person, household) forms a single table
+    
+    These answers can be found in the **tidyr** vignette:
+
+    ```{r, eval=FALSE}
+    vignette(package = "tidyr")
+    vignette("tidy-data")
+    ```
+
 2. Load and look at subsets of these datasets. The first is the `pew` datasets we've been using already. The second reports the points that define, roughly, the geographical boundaries of different London boroughs. What is 'untidy' about each?
 
-```{r, warning=FALSE, eval=FALSE}
-data(pew, package="efficient")
+```{r, eval=FALSE}
+data(pew, package = "efficient")
 head(pew, 10)
-data(lnd_geo_df, package="efficient")
+data(lnd_geo_df, package = "efficient")
 head(lnd_geo_df, 10)
+
+##                    name_date population        x        y
+## 1               Bromley-2001     295535 544361.6 172379.2
+## 2               Bromley-2001     295535 549546.0 169911.0
+## 3               Bromley-2001     295535 539596.3 160796.3
+## 4               Bromley-2001     295535 533693.2 170730.1
+## 5               Bromley-2001     295535 533717.7 170813.8
+## 6               Bromley-2001     295535 534003.7 171442.1
+## 7               Bromley-2001     295535 541104.7 173355.7
+## 8               Bromley-2001     295535 544361.6 172379.2
+## 9  Richmond upon Thames-2001     172330 523604.7 176320.7
+## 10 Richmond upon Thames-2001     172330 521454.5 172361.5
 ```
+
+In the `pew` dataset, not every column is a variable: the single variable of income band is represented by many columns.
 
 3. Convert each of the above datasets into tidy form.
 
-4. Consider the following string of phone numbers and fruits from [@wickham2010stringr]:
+    As illustrated previously, `gather()` converts wide data into long, tidy forms:
+    
+    
+```{r, eval=FALSE}
+library("tidyr")
+gather(pew, Income, count, -religion) # results not shot shown
+```
+
+In the `lnd_geo_df` dataset, not every column is a distinct variable: `name_date` contains two variables (the name of the zone and the date). This can be fixed as follows:
+    
+```{r, eval=FALSE}
+tidy_geo = separate(lnd_geo_df, name_date,
+                  into = c("name", "date"), sep = -5)
+unique(tidy_geo[1:2])[1:3,]
+
+##                     name date
+## 1               Bromley- 2001
+## 9  Richmond upon Thames- 2001
+## 15           Hillingdon- 2001
+```
+
+4. Consider the following string of phone numbers and fruits [from the **stringr** package](http://stringr.tidyverse.org/reference/str_match.html):
 
 ```{r}
 strings = c(" 219 733 8965", "329-293-8753 ", "banana", "595 794 7569",
@@ -52,46 +124,97 @@ Write functions in **stringr** and base R that return:
 - A logical vector reporting whether or not each string contains a number.
 - Complete words only, without extraneous non-letter characters.
 
-```{r, eval=FALSE}
-library(stringr)
-str_detect(string = strings, pattern = "[0-9]")
-str_extract(strings, pattern = "[A-z]+")
-```
-
-#### Exercises {-}
+    ```{r, eval=FALSE}
+    library(stringr)
+    str_detect(string = strings, pattern = "[0-9]")
+    str_extract(strings, pattern = "[A-z]+")
+    ```
 
 1. Try running each of the chaining examples above line-by-line, so the first two entries for the first example would look like this:
 
 ```{r, eval=FALSE}
+library("dplyr")
 data("wb_ineq", package="efficient")
-wb_ineq
 ```
 
 followed by:
 
 ```{r, eval=FALSE}
-library(dplyr)
 wb_ineq %>% 
   select(Year, gini) 
 ```
 
 Explain in your own words what changes each time.
 
+```{r, eval=FALSE}
+wb_ineq %>% 
+  select(Year, gini) %>% # select only named columns
+  mutate(decade = floor(Year / 10) * 10) %>% # create decade column
+  group_by(decade) %>% # group the dataset
+  summarise(mean(gini, na.rm = TRUE)) # find the mean gini index per year
+
+## # A tibble: 6 × 2
+##   decade `mean(gini, na.rm = TRUE)`
+##    <dbl>                      <dbl>
+## 1   1970                   40.05333
+## 2   1980                   37.84583
+## 3   1990                   42.02168
+## 4   2000                   40.54188
+## 5   2010                   39.28561
+## 6     NA                        NaN
+```
+
 2. Use chained **dplyr** functions to answer the following question: In which year did countries without and 'a' in their name have the lowest level of inequality?
 
+    1981, as illustrated below:
+
+```{r, eval=FALSE}
+wb_ineq %>% 
+  filter(!grepl("a", Country)) %>%
+  filter(!is.na(gini)) %>% 
+  group_by(Year) %>% 
+  summarise(mean_gini = min(mean(gini), na.rm = TRUE)) %>% 
+  top_n(-1, mean_gini)
+
+## # A tibble: 1 × 2
+##    Year mean_gini
+##   <int>     <dbl>
+## 1  1981     23.29
+```
+
+    Note: the question is open to interpretation. In the above answer, 'lowest level of inequality' is interpreted as 'mean gini index for all countries without a in their name per year'.
 
 #### Exercises {-}
 
-1. Refer back to the greenhouse gas emissions example at the outset of section \@ref(dplyr), in which we found the top 3 countries in terms of emissions growth in the transport sector. a) Explain in words what is going on in each line. b) Try to find the top 3 countries in terms of emissions in 2012 - how is the list different?
+1. Refer back to the greenhouse gas emissions example, in which we found the top 3 countries in terms of emissions growth in the transport sector. a) Explain in words what is going on in each line. b) Try to find the top 3 countries in terms of emissions in 2012 - how is the list different?
 
+    Russia is now present on the list - it has high absolute transport emissions, but relatively low levels of emissions growth.
+
+```{r, message=FALSE}
+library("dplyr")
+data("ghg_ems", package = "efficient")
+ghg_ems %>%
+  filter(!grepl("World|Europe", Country)) %>% 
+  filter(Year == 2012) %>% 
+  top_n(3, Transportation) %>%
+  arrange(desc(Transportation))
+
+## # A tibble: 3 × 7
+##              Country  Year Electricity Manufacturing Transportation  Other
+##                <chr> <dbl>       <dbl>         <dbl>          <dbl>  <dbl>
+## 1      United States  2012     2369.60        495.41        1667.26 541.88
+## 2              China  2012     4404.92       2546.06         702.91 551.97
+## 3 Russian Federation  2012      995.08        293.48         235.22 135.25
+## # ... with 1 more variables: Fugitive <dbl>
+```
 
 2. Explore **dplyr**'s documentation, starting with the introductory vignette, accessed by entering [`vignette("introduction")`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html).
 
 3. Test additional **dplyr** 'verbs' on the `wb_ineq` dataset. (More vignette names can be discovered by typing `vignette(package = "dplyr")`.)
 
-#### Exercises {-}
+#### Exercise {-}
 
-Follow the worked example below to create and query a database on land prices in the UK using **dplyr** as a front end to an SQLite database. 
+- Follow the worked example below to create and query a database on land prices in the UK using **dplyr** as a front end to an SQLite database. 
 The first stage is to read-in the data:
 
 ```{r, eval=FALSE}
@@ -109,7 +232,16 @@ land_sqlite = copy_to(my_db, land_df, indexes = list("postcode", "price"))
 
 What class is the new object `land_sqlite`?
 
+    It's a table with additional attributes to show it's also an SQLite database.
+
+```{r, eval=FALSE}
+class(land_sqlite)
+```
+
+
 Why did we use the `indexes` argument?
+
+    For fast sorting on these variables.
 
 From the above code we can see that we have created a `tbl`. This can be accessed using **dplyr** in the same way as any data frame can. Now we can query the data. You can use SQL code to query the database directly or use standard **dplyr** verbs on the table.
 
@@ -120,7 +252,7 @@ tbl(my_db, sql('SELECT "price", "postcode", "old/new"  FROM land_df'))
 
 How would you erform the same query using `select()`? Try it to see if you get the same result (hint: use backticks for the `old/new` variable name).
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, eval=FALSE}
 # Method 2: using dplyr
 select(land_sqlite, price, postcode, `old/new`)
 ```

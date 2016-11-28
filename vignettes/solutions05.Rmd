@@ -25,37 +25,43 @@ vignette: >
 
 2. Try saving the the `voyages` data frames into 3 other file formats of your choosing (see `vignette("rio")` for supported formats). Try opening these in external programs. Which file formats are more portable?
 
-   To see the range of export options supported by **rio**, consult the documentation:
+To see the range of export options supported by **rio**, consult the documentation:
    
-    ```{r}
-    library(rio)
-    ?export
-    ```
+```{r, eval=FALSE}
+library("rio")
+?export
+```
     
-    Three output options suported by the package are illustrated below:
+Three output options suported by the package are illustrated below:
     
-    ```{r}
-    export(cars, "cars.psv") # relatively unusual but highly portable
-    export(cars, "cars.json") # portable web-friendly format
-    export(cars, "cars.sav") # can be read-in by SPSS, not portable
-    ```
+```{r, eval=FALSE}
+export(cars, "cars.psv") # relatively unusual but highly portable
+export(cars, "cars.json") # portable web-friendly format
+export(cars, "cars.sav") # can be read-in by SPSS, not portable
+```
 
 3. As a bonus exercise, create a simple benchmark to compare the write times for the different file formats used to complete the previous exercise. Which is fastest? Which is the most space efficient?
 
     Of the above examples, .sav was the fastest:
 
-    ```{r}
+    ```{r, eval=FALSE}
     library(microbenchmark)
     microbenchmark(times = 10,
         export(cars, "cars.json"), # portable web-friendly format
         export(cars, "cars.psv"), # relatively unusual but highly portable
         export(cars, "cars.sav") # can be read-in by SPSS, not portable
     )
+    
+    ## Unit: microseconds
+    ##                       expr     min      lq      mean    median       uq
+    ##  export(cars, "cars.json") 847.734 856.760 1046.0637 1004.2230 1257.855
+    ##   export(cars, "cars.psv") 630.689 641.662  693.5819  684.9845  733.419
+    ##   export(cars, "cars.sav") 197.913 218.843  265.2692  232.7065  273.377
     ```
     
     We can use `file.size()` to test the file size of the resulting files:
     
-```{r}
+    ```{r, eval=FALSE}
     f_cars = list.files(pattern = "cars")
     knitr::kable(data.frame(
       Format = c(".json", ".psv", ".sav"),
@@ -63,3 +69,9 @@ vignette: >
     ))
     file.remove(f_cars) # remove excess files
     ```
+    
+    |Format | Size|
+    |:------|----:|
+    |.json  | 1144|
+    |.psv   |  308|
+    |.sav   | 1220|

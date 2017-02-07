@@ -1,7 +1,7 @@
 Package: efficient
 Type: Package
 Title: Becoming an Efficient R Programmer
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(person("Colin", "Gillespie", email="csgillespie@gmail.com", role = c("aut", "cre")), 
              person("Robin", "Lovelace", email="rob00x@gmail.com", role = c("aut")))
 Description: Data sets, functions and vignettes for the Efficient R programming 
@@ -18,4 +18,4 @@ Suggests:
     rmarkdown, benchmarkme, microbenchmark, ggplot2, dplyr, stringr, scales, ggmap, pryr,
     memoise
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0

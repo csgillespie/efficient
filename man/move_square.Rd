@@ -13,4 +13,3 @@ This function calculates where you will land on your next move.}
 \description{
 Moving square on a Monopoly board
 }
-

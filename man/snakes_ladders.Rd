@@ -15,4 +15,3 @@ Number of rolls needed to win.
 \description{
 A simple game of snakes and ladders.
 }
-

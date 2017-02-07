@@ -12,4 +12,3 @@ simulate_monopoly(no_of_turns)
 \description{
 An R function for simulating the game of Monopoly
 }
-

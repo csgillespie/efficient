@@ -22,4 +22,3 @@ names(ghg_ems) = stringr::word(names(ghg_ems), sep = " |/")
 devtools::use_data(ghg_ems, overwrite = TRUE)
 }
 }
-

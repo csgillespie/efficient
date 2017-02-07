@@ -2,11 +2,10 @@
 % Please edit documentation in R/datasets.R
 \docType{data}
 \name{ex_mat}
-\alias{ex_df}
 \alias{ex_mat}
+\alias{ex_df}
 \title{An example data frame and matrix}
 \description{
 Example data frame and matrix. Each object has 1000 rows and 100 columns. The data
 is 10^5 uniform random numbers.
 }
-

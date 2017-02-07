@@ -35,4 +35,3 @@ split -l 10 aa mini # further split chunk 'aa' into 10 lines
 cp miniaa ../data # copy the first into 'sample-data'
 }
 }
-

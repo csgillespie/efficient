@@ -15,4 +15,3 @@ per second per die. This data set was taken from
 http://en.wikipedia.org/wiki/List_of_Intel_microprocessors
 Each CPU is the best in it's class
 }
-

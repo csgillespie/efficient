@@ -29,4 +29,3 @@ land_df = land_df[1:10000,]
 devtools::use_data(land_df, overwrite = TRUE)
 }
 }
-

@@ -12,4 +12,3 @@ Returns \code{TRUE} if everything is OK.
 \description{
 A simple function to test whether Rcpp is installed and working.
 }
-

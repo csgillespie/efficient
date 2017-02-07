@@ -29,4 +29,3 @@ names(pew) = c("religion", "<$10k", "$10--20k", "$20--30k", "$30--40k",
 # write_csv(pew, "extdata/pew.csv")
 }
 }
-

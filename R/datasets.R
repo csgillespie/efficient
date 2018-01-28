@@ -122,6 +122,14 @@ NULL
 #' for further information. \code{wb_ineq_renamed} is a version of the dataset with updated names.
 #' @docType data
 #' @format A nine column data frame.
+#' @examples
+#' \dontrun{
+#' head(wb_ineq)
+#' wb_ineq_renamed = rename(wb_ineq, code = `Country Code`)
+#' wb_ineq_renamed = rename(wb_ineq_renamed,
+#' top10 = `Income share held by highest 10% [SI.DST.10TH.10]`,
+#' bot10 = `Income share held by lowest 10% [SI.DST.FRST.10]`)
+#' }
 NULL
 
 #' @name pew

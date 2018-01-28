@@ -12,3 +12,12 @@ from World Bank data. See
 \url{http://data.worldbank.org/indicator/SI.POV.GINI?locations=AT}
 for further information. \code{wb_ineq_renamed} is a version of the dataset with updated names.
 }
+\examples{
+\dontrun{
+head(wb_ineq)
+wb_ineq_renamed = rename(wb_ineq, code = `Country Code`)
+wb_ineq_renamed = rename(wb_ineq_renamed,
+top10 = `Income share held by highest 10\% [SI.DST.10TH.10]`,
+bot10 = `Income share held by lowest 10\% [SI.DST.FRST.10]`)
+}
+}

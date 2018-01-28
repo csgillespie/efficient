@@ -119,9 +119,19 @@ NULL
 #' @description Estimates of the level of income inequality, using the Gini index,
 #' from World Bank data. See
 #' \url{http://data.worldbank.org/indicator/SI.POV.GINI?locations=AT}
-#' for further information. \code{wb_ineq_renamed} is a version of the dataset with updated names.
+#' for further information. \code{wb_ineq_renamed} is a version of the dataset that has been cleaned.
 #' @docType data
 #' @format A nine column data frame.
+#' @examples
+#' \dontrun{
+#' library(tidyverse)
+#' head(wb_ineq)
+#' wb_ineq_renamed = rename(wb_ineq, code = `Country Code`)
+#' cols_to_change = c(3, 5:9) # column ids to change
+#' wb_ineq_renamed = wb_ineq_renamed %>% 
+#'   rename(top10 = SI.DST.10TH.10, bot10 = SI.DST.FRST.10) %>% 
+#'   mutate_at(vars(cols_to_change), as.numeric)
+#' }
 NULL
 
 #' @name pew

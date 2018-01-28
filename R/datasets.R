@@ -127,9 +127,10 @@ NULL
 #' head(wb_ineq)
 #' library(dplyr)
 #' wb_ineq_renamed = rename(wb_ineq, code = `Country Code`)
-#' wb_ineq_renamed = rename(wb_ineq_renamed,
-#' top10 = `SI.DST.10TH.10`,
-#' bot10 = `SI.DST.FRST.10`)
+#' cols_to_change = 5:9 # column ids to change
+#' wb_ineq_renamed = wb_ineq_renamed %>% 
+#'   rename(top10 = `SI.DST.10TH.10`, bot10 = `SI.DST.FRST.10`) %>% 
+#'   mutate_at(vars(cols_to_change), as.numeric)
 #' }
 NULL
 

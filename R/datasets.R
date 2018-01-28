@@ -125,10 +125,11 @@ NULL
 #' @examples
 #' \dontrun{
 #' head(wb_ineq)
+#' library(dplyr)
 #' wb_ineq_renamed = rename(wb_ineq, code = `Country Code`)
 #' wb_ineq_renamed = rename(wb_ineq_renamed,
-#' top10 = `Income share held by highest 10% [SI.DST.10TH.10]`,
-#' bot10 = `Income share held by lowest 10% [SI.DST.FRST.10]`)
+#' top10 = `SI.DST.10TH.10`,
+#' bot10 = `SI.DST.FRST.10`)
 #' }
 NULL
 

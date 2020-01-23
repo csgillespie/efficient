@@ -1,21 +1,40 @@
-Package: efficient
 Type: Package
+Package: efficient
 Title: Becoming an Efficient R Programmer
-Version: 0.1.3
-Authors@R: c(person("Colin", "Gillespie", email="csgillespie@gmail.com", role = c("aut", "cre")), 
-             person("Robin", "Lovelace", email="rob00x@gmail.com", role = c("aut")))
-Description: Data sets, functions and vignettes for the Efficient R programming 
-  book. Published by O'Reilly, 2017.
+Version: 0.1.4
+Authors@R: 
+    c(person(given = "Colin",
+             family = "Gillespie",
+             role = c("aut", "cre"),
+             email = "csgillespie@gmail.com"),
+      person(given = "Robin",
+             family = "Lovelace",
+             role = "aut",
+             email = "rob00x@gmail.com"))
 Maintainer: <csgillespie@gmail.com>
+Description: Data sets, functions and vignettes for the
+    Efficient R programming book. Published by O'Reilly, 2017.
 License: GPL-3 | GPL-2
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports:
-    Rcpp, stats
-LazyData: TRUE
+    Rcpp,
+    stats
 Suggests:
+    benchmarkme,
+    dplyr,
+    ggmap,
+    ggplot2,
     knitr,
-    rmarkdown, benchmarkme, microbenchmark, ggplot2, dplyr, stringr, scales, ggmap, pryr,
-    memoise
-VignetteBuilder: knitr
-RoxygenNote: 6.0.0
+    maps,
+    memoise,
+    microbenchmark,
+    pryr,
+    rmarkdown,
+    scales,
+    stringr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: TRUE
+RoxygenNote: 7.0.2

@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignetted extends Chapter 6 of Efficient R Programming to discuss merging.
+This vignette extends Chapter 6 of Efficient R Programming to discuss merging.
 
 The starting point is map data and a mapping package:
 
